@@ -1,0 +1,311 @@
+
+/* External style*/
+
+html,
+body{
+  margin: 0;
+  height: 100%;
+  font-weight: 300;
+}
+body{
+  overflow-x: hidden;
+}
+#container #panel {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  padding: 0;
+  overflow: hidden;
+  background-color: #ddd;
+}
+#container .sliderchild img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+#container .sliderchild .panels-navigation {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+/* END */
+body{
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
+
+.anim span{
+    display: block;
+    margin: 0px;
+
+}
+a{
+    text-decoration: none;
+    color: #000;
+}
+button a{
+    color: #fff;
+}
+button{
+    padding: 10px;
+    background-color: #023430;
+    color: #fff;
+}
+#button{
+    padding: 2% !important;
+    margin: 0px 0px 0px 8%;
+    width: 15%;
+    background-color: #023430;
+}
+#btn{
+    margin-top: 3%;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+#secure{
+    font-size: 2.5rem;
+    text-align: left;
+}
+.mandate{
+    margin: 5% 0%;
+    width: 100% !important;
+    margin: 8% 5%;
+    padding: 7% 5%;
+    text-align: center;
+}
+#btn2{    
+    align-items: flex-start;
+}
+.mandate p{
+    font-size: 1.5rem;
+    text-align: left;
+}
+
+#logo{
+    width: 15%;
+    font-size: 1.2rem;
+}
+#search{
+    width: 25%;
+    
+}
+#search input{
+    width: 70%;
+    height: 30%;
+    margin-top: 8%;
+}
+#about{
+    width: 50%;
+    font-size: 1.1rem;
+}
+html{
+    margin: 0%;
+    padding: 0%;
+}
+.nm{
+    padding: 5% 0%;
+}
+
+#banner-child-1{
+    width: 50%;
+    height: inherit;
+    padding: 2%;
+    color: #fff;
+    border: 2px solid yellow;
+}
+#banner-child-2{
+    width: 58%;
+    border-top-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+}
+#writeup{
+    font-size: 2.2rem;
+}
+#writeup2{
+    font-size: 1.1rem;
+}
+
+.properties{
+    display: flex;
+    justify-content: space-around;
+    margin: 100px 0px;
+}
+#partnerwrapper, #partner{
+    text-align: center;
+}
+.mandate{
+    text-align: center;
+}
+.mandatewrapper-child img{
+    width: 30%;
+}
+.mandatebelow{
+    text-align: center;
+}
+.sliderbox{
+    display: block;
+    justify-content: space-around;
+}
+
+.sliderelementchild{
+    height: inherit;
+}
+.sliderchild{
+    width: inherit;
+    text-align: center;
+    color: red;
+}
+.sliderchild img{
+    width: 100%;
+    height: 40vh;
+}
+.featureswrapper{
+    display: flex;
+    justify-content: space-around;
+}
+.features{
+    width: 22%;
+    text-align: center;
+}
+.features img{
+    width: 30%;
+}
+.footerwrapper{
+    display: flex;
+}
+#newsletter{
+    height: 23%;
+    width: 50%;
+}
+.socialwrapper{
+    display: flex;
+}
+.socials img{
+    width: 5%;
+}
+.socials p{
+    display: inline-block;
+    align-content: right;
+}
+.socialitem a{
+    display: block;
+}
+.socialitem{
+    width: 25%;
+}
+.socialsfirst{
+    width: 100%;
+    padding-left: 2%;
+}
+/*on hover*/
+
+button:hover{
+    text-decoration: none;
+    color: #fff;
+    background-color: #000;
+    cursor: pointer;
+}
+button a:hover{
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    /* background-color: rgba(0,255,0,0.9); */
+}
+#button:hover{
+    background-color: #000;
+}
+/* sign in page*/
+.signin{
+    margin: 7% 0%;
+    padding: 0%;
+}
+.row{
+    display: flex !important;
+    justify-content: space-around !important;
+}
+.col{
+    width: 50% !important;
+}
+.form{
+    width: 75% !important;
+    height: 50px !important;
+    margin: 25px !important;
+}
+#login{
+    margin: 15px 20px 20px 25px;
+    width: 77%;
+    border-radius: 5px;
+}
+.container{
+    width: 100% !important;
+    margin-top: 2% !important;
+}
+.loginstyle{
+    background-color: #023430;
+    color: #fff;
+}
+.loginstyle h2{
+    font-size: 46px;
+    padding-top: 100px;
+    padding-left: 30px;
+    padding-right: 0px;
+}
+.loginstyle p{
+    font-size: 22px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.loginstyle2{
+    padding: 5% 0% 10% 8%;
+    background-color: #ddd;
+}
+.signindirection{
+    margin-right: 80px;
+    text-align: center;
+}
+
+/*Start of registration form*/
+
+.formwrap{
+    display: flex;
+    justify-content: space-between;
+}
+.registerstyle{
+    width: 25%;
+    background-color: #023430;
+    color: #fff;
+    font-size: 20px;
+}
+.registerstyle h1{
+    padding: 200px 10px 200px;
+}
+.registerstyle2{
+    width: 75%;
+    background-color: #ddd;
+}
+.formwrapchild{
+    margin: 20px;
+    width: 50%;
+}
+.formwrap input{
+    width: 90%;
+    height: 30px;
+}
+#btnreset, #btnregister{
+    margin: 20px;
+    width: 20%;
+    height: 30px;
+    padding: 0% !important;
+}
+.choice{
+    margin-top: 6%;
+}
