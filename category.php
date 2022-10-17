@@ -73,6 +73,9 @@
                     <p class="bold">Status: <?php echo $value['status'];?></p>
                     <img class="imgloc" src="images/location.png" alt="location"><span class="bold"><?php echo $value['location'];?></span><br>
                     <button name="btncat" type="submit">View More</button>
+                    <input type="hidden" name="apartmentid" value="<?php echo $value["apartments_id"];?>">
+                    <input type="hidden" name="amount" value=" <?php echo $value['price']?>">
+                    
                     </form>
                 </div>
             <?php

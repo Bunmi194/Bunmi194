@@ -350,10 +350,10 @@ session_start();
             </div>
             <div class="row space">
                 <div class="col">
-                    <a class="btn btn-primary" id="addimage">Add Images</a>
+                    <button type="button" class="btn btn-primary" id="addimage">Add Image</button>
                 </div>
                 <div class="col">
-                    <a class="btn btn-danger" id="remimage">Remove Images</a>
+                    <button type="button" class="btn btn-danger" id="remimage">Remove Image</button>
                 </div>
             </div><br>
             <div class="row space">
@@ -369,15 +369,35 @@ session_start();
 <script type="text/javascript">
     var i = 3;
     $(document).ready(function(){
-        $('#addimage').click(function(){
-            
+        
+        $('#addimage').click(function(){            
+                var c = $(this).prop('disabled');
+        if(i>=3 && i<=5){
             $(".img").append('<p class="removeimage"><label class="form-label" for="image'+i+'">Image '+i+'</label><input type="file" name="image'+i+'" class="image1 form-control"><p>');
-            i++;
+            i++; 
+        }else{
+            $('#addimage').prop('disabled',true);   
+        }
+        alert(i);
+                  
+            
         })
+            
         $("#remimage").click(function(){
+            if(i >= 4 && i<=6){
+            var d = $(this).prop('disabled');
+            if(i < 7){
+                $('#addimage').prop('disabled',false);
+            }
             $("#div .removeimage:last").remove();
-            i--;
-        })
-    })
+            --i;
+            alert(i);
+
+            }
+        });
+
+    });
+            
+    
 </script>
 <?php include_once "footer.php"?>

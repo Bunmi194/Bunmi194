@@ -1,5 +1,11 @@
 <?php
+session_start();
     include_once "header.php";
+    include_once "shared/constants.php";
+    include_once "shared/landlord.php";
+    $landlord_id = $_SESSION['id'];
+    $landmsg = new Landlord();
+    $landlordmessage = $landmsg->getMessageCount($landlord_id);
 ?>
 <style>
     .username{
@@ -94,6 +100,10 @@
                     <a href="uploadproperty.php" class="btn btn-success">Upload Property</a>
                     <button type="button" class="btn btn-primary">View My Properties</button>
                     <button type="button" class="btn btn-secondary">Inspections</button>
+                    <button type="button" class="btn btn-danger"><a href="messages.php">Messages: <?php if(isset($_SESSION['id'])){
+                            echo $landlordmessage['COUNT(inspection_id)'];
+                    }
+                        ?></a></button>
                     <button type="button" class="btn btn-primary"><a href="logout.php">Log Out</a></button>
                     
                 </div>
@@ -119,3 +129,9 @@
 <?php
     include_once "footer.php";
 ?>
+<!-- 
+<?php
+echo "<pre>";
+print_r($_REQUEST);
+echo "</pre>";
+?> -->

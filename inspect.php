@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['apartmentid'] = $_REQUEST["apartmentid"];
     include_once "header.php";
     include_once "shared/common.php";
     include_once "shared/constants.php";
@@ -41,23 +42,30 @@ session_start();
     .space{
         margin-left: 20px;
     }
+    .spacebtn{
+        margin: 30px 60px;
+        text-align: center;
+    }
+    .form-control h5{
+        text-align: center;
+        padding: 10px;
+    }
     .forms{
         display: inline-block;
         margin-left: 0px;
         margin-right: 30px;
         /* width: 100px; */
     }
+    #btnno{
+        margin-left: 100px !important;
+    }
 </style>
 <?php
     $apt = new Common();
     $result = $apt->getApartmentById($_REQUEST['apartmentid']);
-    echo "<pre>";
-    print_r($_REQUEST);
-    echo "</pre>";
-
-    echo "<pre>";
-    print_r($_SESSION);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($_REQUEST);
+    // echo "</pre>";
 
     // echo "<pre>";
     // print_r($result);
@@ -66,6 +74,20 @@ session_start();
     //     $row = $value
     // }
 ?>
+            <div class="row">
+            <div class="offset-1 col-6 mt-5 mb-5 p-5">
+                
+                <div class="form-control">
+                    <h5>Are you sure you want to inspect this property?</h5>
+                    <form action="inspectresponse.php" method="POST" class="forms btn">                    
+                        <button id="btnno" type="submit" class="btn btn-danger spacebtn" name="btnno">No</button>
+                    </form>
+                    <form action="inspectresponse.php" method="POST" class="forms btn">
+                        <button type="submit" class="btn btn-primary spacebtn" name="btnyes">Yes</button>
+                    </form>
+
+    </div>
+            </div>
     <div id="header">
         <h2>House Title: <?php echo $result[0]['title']?></h2>
         <h3>Category: <?php echo $result[0]['category']?></h3>
@@ -75,16 +97,6 @@ session_start();
             $date = $result[0]['date'];
             echo date('jS M Y', strtotime($date));
         ?></h4>
-        
-            <?php
-                if(isset($_SESSION['apartmentinspect'])){
-                    echo "<div class='alert alert-success' style='text-align:center; font-weight: bold'>";
-                    echo $_SESSION['apartmentinspect'];
-                    echo "</div>";
-                    unset($_SESSION['apartmentinspect']);
-                }
-            ?>
-        
     </div>
     <div class="morewrapper">
         <div class="morewrapperchild aside">
@@ -130,6 +142,7 @@ session_start();
                             ?>">
                         <input type="hidden" name="amount" value="<?php echo $result[0]['price']
                         ?>">
+                        <input type="hidden" name="apartmentid" value="<?php echo $_REQUEST['apartmentid']?>">
                         </form>
                 </div>
             </div>

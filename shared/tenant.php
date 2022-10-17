@@ -89,6 +89,41 @@
         }
         //end logout
 
+        
+        //insert into inspection
+        function inspection($tenantid, $apartmentid){
+            //prepare
+            $stmt = $this->dbaccess->prepare("INSERT INTO inspection (tenants_id, apartments_id) VALUES (?,?)");
+            //bind
+            $stmt->bind_param("ii", $tenantid, $apartmentid);
+            //execute
+            $stmt->execute();
+
+            if($stmt->affected_rows == 1){
+                $output = $stmt->insert_id;
+            }else{
+                $output = false.$stmt->error;
+            }
+            return $output;
+        }
+    //insert into inspection
+
+    //insert message
+        function insertTenantMessage($apartmentid, $tenantid, $message, $inspectionid){
+            $stmt = $this->dbaccess->prepare("INSERT INTO messages_apartment (apartment_id, tenant_id, message, inspection_id) VALUES (?,?,?,?)");
+            $stmt->bind_param("iisi", $apartmentid, $tenantid, $message, $inspectionid);
+            $stmt->execute();
+
+            if($stmt->affected_rows == 1){
+                $output = true;
+            }else{
+                $output = false.$stmt->error;
+            }
+            return $output;
+        }
+
+    //insert message
+
 
     }
 

@@ -37,7 +37,7 @@
         function register($lastname, $firstname, $address, $email, $phone, $password, $propnumber, $account_name, $account_number, $bank_name, $nin, $admin_id, $keylogin){
             $password = password_hash($password, PASSWORD_DEFAULT);
             //prepare
-            $dbstatement = $this->dbaccess->prepare("INSERT INTO landlords (lastname, firstname, address, email, phone, password, property_validity_number, account_name, account_number, bank_name, nin, admin_id, keylogin) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            $dbstatement = $this->dbaccess->prepare("INSERT INTO landlords (landlord_lastname, landlord_firstname, landlord_address, landlord_email, landlord_phone, password, property_validity_number, account_name, account_number, bank_name, landlord_nin, admin_id, keylogin) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
             //bind
             $dbstatement->bind_param("sssssssssssss", $lastname, $firstname, $address, $email, $phone, $password, $propnumber, $account_name, $account_number, $bank_name, $nin, $admin_id, $keylogin);
             //execute
@@ -220,7 +220,7 @@
         //login begins
         function logIn($email, $password){
             //$password = password_verify($password, PASSWORD_DEFAULT);
-            $dbstatement = $this->dbaccess->prepare("SELECT * FROM landlords WHERE email=?");
+            $dbstatement = $this->dbaccess->prepare("SELECT * FROM landlords WHERE landlord_email=?");
             $dbstatement->bind_param("s",$email);
             $dbstatement->execute();
             $result = $dbstatement->get_result();
@@ -232,9 +232,9 @@
                    if(password_verify($password,$row['password'])){
                     // password match
                     session_start();
-                    $_SESSION['lastname'] = $row['lastname'];
-                    $_SESSION['firstname'] = $row['firstname'];
-                    $_SESSION['email'] = $row['email'];
+                    $_SESSION['lastname'] = $row['landlord_lastname'];
+                    $_SESSION['firstname'] = $row['landlord_firstname'];
+                    $_SESSION['email'] = $row['landlord_email'];
                     $_SESSION['id'] = $row['landlord_id'];
                     $_SESSION['logger'] = "K!NG_DAViD";
                     return true;
@@ -259,6 +259,120 @@
         }
         //end logout
 
+        //insert into inspection
+            function inspection($tenantid, $apartmentid){
+                //prepare
+                $stmt = $this->dbaccess->prepare("INSERT INTO inspection (tenants_id, apartments_id) VALUES (?,?)");
+                //bind
+                $stmt->bind_param("ii", $tenantid, $apartmentid);
+                //execute
+                $stmt->execute();
+
+                if($stmt->affected_rows > 0){
+                    $output = $stmt->insert_id;
+                }else{
+                    $output = false.$stmt->error;
+                }
+                return $output;
+            }
+        //insert into inspection
+
+        //get all messages
+
+            function getMessageCount($landlords_id){
+                //prepare
+                $stmt = $this->dbaccess->prepare("SELECT COUNT(inspection_id) FROM `inspection` LEFT JOIN apartments ON inspection.apartments_id = apartments.apartments_id LEFT JOIN landlords ON landlords.landlord_id = apartments.landlords_id LEFT JOIN tenants ON tenants.tenant_id = inspection.tenants_id WHERE landlords.landlord_id=?");
+                //bind
+                $stmt->bind_param("i", $landlords_id);
+                //execute
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if($stmt->error){
+                    $result = false.$stmt->error;
+                }else{
+                    $result = $result->fetch_assoc();
+                }
+                return $result;
+            }
+
+        //get all messages
+
+        //fetch landlord id
+            function getLandlordId($apartmentid){
+                $stmt = $this->dbaccess->prepare("SELECT * FROM `apartments` JOIN landlords ON apartments.landlords_id = landlords.landlord_id WHERE apartments.apartments_id=?");
+                $stmt->bind_param("i", $apartmentid);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $output = array();
+                if($stmt->error){
+                    $output[] = "Error ".$stmt->error;
+                }elseif($result->num_rows == 0){
+                    $output[] = "No Record";
+                }elseif($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                        $output[] = $row;
+                    }
+                }else{                    
+                    $output[] = "else";
+                }
+                return $output;
+            }
+        //fetch landlord id
+
+        //getallmessages
+
+            function getAllMessages($landlords_id){
+                $stmt = $this->dbaccess->prepare("SELECT * FROM messages_apartment JOIN apartments ON messages_apartment.apartment_id = apartments.apartments_id LEFT JOIN landlords ON apartments.landlords_id = landlords.landlord_id LEFT JOIN inspection ON inspection.apartments_id = apartments.apartments_id WHERE landlords.landlord_id=? GROUP BY message_id");
+                $stmt->bind_param("i", $landlords_id);
+                $stmt->execute();
+
+                $resultset = $stmt->get_result();
+                $record = array();
+                if($resultset->num_rows > 0){
+                    while ($row = $resultset->fetch_assoc()) {
+                        $record[] = $row;
+                    }
+                }else{
+                    $record[] = "NO RECORD";
+                }
+                return $record;
+            }
+        //getallmessages
+
+        //rejectrequest
+            function rejectRequest($msg, $inspectionid){
+                $stmt = $this->dbaccess->prepare("UPDATE inspection SET status=? WHERE inspection_id=?");
+                $stmt->bind_param("si", $msg, $inspectionid);
+                $stmt->execute();
+
+                if($stmt->affected_rows > 0){
+                    $output = true;
+                }else{
+                    $output = false;
+                }
+                return $output;
+
+            }
+        //rejectrequest
+
+        
+        //acceptrequest
+        function acceptRequest($msg, $inspectiondate, $inspectiontime, $inspectionid){
+            $stmt = $this->dbaccess->prepare("UPDATE inspection SET status=?, inspection_date=?, inspection_time=? WHERE inspection_id=?");
+            $date = date($inspectiondate);
+            $time = date($inspectiontime);
+            $stmt->bind_param("sssi", $msg, $inspectiondate, $inspectiontime, $inspectionid);
+            $stmt->execute();
+
+            if($stmt->affected_rows > 0){
+                $output = true;
+            }else{
+                $output = false;
+            }
+            return $output;
+
+        }
+    //acceptrequest
     }
 
 
