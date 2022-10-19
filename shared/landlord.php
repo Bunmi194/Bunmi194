@@ -296,6 +296,27 @@
             }
 
         //get all messages
+        
+        //get inspection count
+
+        function getInspectionCount($landlords_id){
+            //prepare
+            $msg = 'booked';
+            $stmt = $this->dbaccess->prepare("SELECT COUNT(inspection_id) FROM `inspection` LEFT JOIN apartments ON inspection.apartments_id = apartments.apartments_id LEFT JOIN landlords ON landlords.landlord_id = apartments.landlords_id LEFT JOIN tenants ON tenants.tenant_id = inspection.tenants_id WHERE landlords.landlord_id=? AND inspection.status=?");
+            //bind
+            $stmt->bind_param("is", $landlords_id, $msg);
+            //execute
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if($stmt->error){
+                $result = false.$stmt->error;
+            }else{
+                $result = $result->fetch_assoc();
+            }
+            return $result;
+        }
+
+        //get inspection count
 
         //fetch landlord id
             function getLandlordId($apartmentid){
@@ -338,6 +359,97 @@
                 return $record;
             }
         //getallmessages
+
+
+        //getallinspection
+
+        function getAllInspections($landlords_id){
+            $message = "booked";
+            $stmt = $this->dbaccess->prepare("SELECT * FROM messages_apartment JOIN apartments ON messages_apartment.apartment_id = apartments.apartments_id LEFT JOIN landlords ON apartments.landlords_id = landlords.landlord_id LEFT JOIN inspection ON inspection.apartments_id = apartments.apartments_id WHERE landlords.landlord_id=? AND inspection.status = ? GROUP BY apartment_id");
+            $stmt->bind_param("is", $landlords_id, $message);
+            $stmt->execute();
+
+            $resultset = $stmt->get_result();
+            $record = array();
+            if($resultset->num_rows > 0){
+                while ($row = $resultset->fetch_assoc()) {
+                    $record[] = $row;
+                }
+            }else{
+                $record[] = "NO RECORD";
+            }
+            return $record;
+        }
+
+        //getallinspection
+
+        //getallproperties
+
+        function getAllProperties($landlords_id){
+            $stmt = $this->dbaccess->prepare("SELECT * FROM apartments JOIN apartment_location ON apartments.location_id = apartment_location.location_id WHERE landlords_id=?");
+            $stmt->bind_param("i", $landlords_id);
+            $stmt->execute();
+
+            $resultset = $stmt->get_result();
+            $record = array();
+            if($resultset->num_rows > 0){
+                while ($row = $resultset->fetch_assoc()) {
+                    $record[] = $row;
+                }
+            }else{
+                $record[] = "NO RECORD";
+            }
+            return $record;
+        }
+
+        //getallproperties
+
+        
+        //property count
+
+        function propertyCount($landlords_id){
+            $stmt = $this->dbaccess->prepare("SELECT COUNT(apartments_id) FROM apartments JOIN apartment_location ON apartments.location_id = apartment_location.location_id WHERE landlords_id=?");
+            $stmt->bind_param("i", $landlords_id);
+            $stmt->execute();
+
+            $resultset = $stmt->get_result();
+            $record = array();
+            if($resultset->num_rows > 0){
+                while ($row = $resultset->fetch_assoc()) {
+                    $record[] = $row;
+                }
+            }else{
+                $record[] = "NO RECORD";
+            }
+            return $record;
+        }
+
+        //property count
+
+
+        
+        //amount count
+
+        function amountCount($landlords_id){
+            $msg = "completed";
+            $stmt = $this->dbaccess->prepare("SELECT SUM(amount) FROM payments_apartments JOIN apartments ON payments_apartments.apartments_id = apartments.apartments_id WHERE payments_apartments.status = ? AND apartments.landlords_id=?");
+            $stmt->bind_param("is", $landlords_id, $msg);
+            $stmt->execute();
+
+            $resultset = $stmt->get_result();
+            $record = array();
+            if($resultset->num_rows > 0){
+                while ($row = $resultset->fetch_assoc()) {
+                    $record[] = $row;
+                }
+            }else{
+                $record[] = "NO RECORD";
+            }
+            return $record;
+        }
+
+        //amount count
+
 
         //rejectrequest
             function rejectRequest($msg, $inspectionid){

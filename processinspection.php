@@ -41,6 +41,9 @@ echo "</pre>";
         $time = $_REQUEST['time'];
         $bookmsg = new Landlord();
         $out = $bookmsg->acceptRequest($msg, $date, $time, $_SESSION['inspection_id']);
+
+        $_SESSION['booked'] = "You have successfully booked a property for inspection. Please check your inspection dashboard to keep track of events.";
+        header("Location: inspectionbooked.php");
        
     //    var_dump(date($_REQUEST['date']));
     //    var_dump(date($_REQUEST['time']));
