@@ -99,24 +99,45 @@ include_once "header.php";
                 
             </div>
             <div class="col loginstyle2">
-                
-                <section id="formsection">
-                        <form action="" method="POST" class="form-control" id="form2">
-                    <span><?php if(isset($errors["tensignup"])) echo $errors["tensignup"];?></span>
-                        <input type="text" name="tenemail" id="email" placeholder="Enter your email address (for tenants)..." class="form"><span><?php if(isset($errors["tenemail"])) echo $errors["tenemail"];?></span>
-                        <input type="password" name="tenpassword" id="password" placeholder="Enter your password..." class="form"><span><?php if(isset($errors["tenpassword"])) echo $errors["tenpassword"];?></span>
-                        <button class="form" type="submit" name="tenbtnsubmit" id="login">Log In</button>
-
+                <section>
+                        <form action="" method="POST" class="form-control" id="form1">
+                        <span class="span"><?php 
+                            if(isset($errors["signin"])){
+                                echo $errors["signin"];
+                            }else{
+                                echo " ";
+                            }
+                        ?></span>
+                        <input type="text" name="email" id="email" placeholder="Enter your email address (for landlords)..." class="form">
+                        <span class="span"><?php 
+                            if(isset($errors["email"])){
+                                echo $errors["email"];
+                            }else{
+                                echo " ";
+                            }
+                        ?></span><br>
+                        <input type="password" name="password" id="password" placeholder="Enter your password..." class="form"><span class="span"><?php 
+                            if(isset($errors["password"])){
+                                echo $errors["password"];
+                            }else{
+                                echo " ";
+                            }
+                        ?></span><br>
+                        <button class="form" type="submit" name="btnsubmit" id="login">Log In</button>
+                        
+                    <div class="signindirection">
+                    </div>
+                    
+                    </form>
                 </section>
             
         <div class="signindirection">
-                    <p>Are you a registered <b>landlord</b>? Click on the button below to sign in.</p>
-                    <a href="landlordsignin.php" class="btn btn-primary">Landlords</a>
+                    <p>Are you a registered <b>tenant</b>? Click on the button below to sign in.</p>
+                    <a href="signin.php" class="btn btn-primary">Tenant</a>
             
-        </div>          
-    
+        </div>
         
-        </form>
+        
         </div>
         <!-- <?php
         echo "<pre>";
@@ -130,24 +151,9 @@ include_once "header.php";
 
 <script src="jquery/jquery.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#form1').hide();
-            // alert(c);
-         $('[name=signintype]').click(function(){
-            if($('#landlord').prop('checked')==true){
-                $('#form2').hide();
-                $('#form1').show();
-            }else{
-                $('#form1').hide();
-                $('#form2').show();
-            }
-            //landlord
-            var btn = "";
-            var email = $('#email').val();
-            var password = $('#password').val();
         
             //$('#formsection').load("signinform.php", {state: c});
-        })
+        //})
         // $('#btnsubmit').click(function(){
         //     $.ajax({
         //         type: "POST",
@@ -159,7 +165,7 @@ include_once "header.php";
                 
         //     });
         // });
-    });
+    //});
 </script>
 <?php
     include_once "footer.php";

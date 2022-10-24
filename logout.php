@@ -8,4 +8,11 @@
         $object = new Tenant();
         $object->logout();
     }
+
+    if(isset($_REQUEST['btnphsignout'])){
+        $object = new Common();
+        $object->logout();
+    }
+
+    
 ?>

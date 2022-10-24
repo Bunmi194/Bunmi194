@@ -1,7 +1,7 @@
 <?php    
     session_start();
     if (isset($_SESSION['lastname'])) {
-        include_once "styleheader.php";
+        // include_once "styleheader.php";
     }else{
         include_once "header.php";
     }  
@@ -58,7 +58,8 @@
     if($insert != "cool"){
         echo $insert;
     }else{
-        header("Location: tendashboard.php");
+        header("Location: landashboard.php");
+        exit();
     }
     }
 }
@@ -104,6 +105,7 @@
             echo $insert;
         }else{
             header("Location: landashboard.php");
+            exit();
         }
         }
 }
@@ -142,59 +144,88 @@
 
 <div class="choice">
     
-<p><b>Click the button below to register as a landlord.</b></p>
-        <a href="landlordregister.php" class="btn btn-primary">Landlords</a>
-        </div>
+<p><b>Click the button below to register as a tenant.</b></p>
+        <a href="register.php" class="btn btn-primary">Tenants</a>
+</div>
     <div class="registercontainer">
         <div class="registerstyle">
-            <h1>Get Homified!</h1>
+            <h1><b>Get Homified!</b></h1>
         </div>
         <div class="registerstyle2">
-         
-            <form action="register.php" method="POST" id="registerform2" class="form-control">
+        <form action="landlordregister.php" method="POST" id="registerform1" class="form-control">
                 <div class="formwrap">
                     <div class="formwrapchild">
-                        <label class="form-label" for="tenfirstname">First Name: </label>
-                        <input class="form-control" type="text" name="tenfirstname" id="tenfirstname" value="<?php if(isset($_REQUEST['tenfirstname'])) echo $_REQUEST['tenfirstname']?>">
+                        <label for="firstname" class="form-label">First Name: </label>
+                        <input class="form-control" type="text" name="firstname" id="firstname" value="<?php if(isset($_REQUEST['firstname'])) echo $_REQUEST['firstname']?>">
                     </div>
                     <div class="formwrapchild">
-                        <label class="form-label" for="tenlastname">Last Name: </label>
-                        <input class="form-control" type="text" name="tenlastname" id="tenlastname" value="<?php if(isset($_REQUEST['tenlastname'])) echo $_REQUEST['tenlastname']?>">
+                        <label for="lastname" class="form-label">Last Name: </label>
+                        <input class="form-control" type="text" name="lastname" id="lastname" value="<?php if(isset($_REQUEST['lastname'])) echo $_REQUEST['lastname']?>">
                     </div>
 
                 </div>
                 <div class="formwrap">
                     <div class="formwrapchild">
-                        <label class="form-label" for="tenemail">Email: </label>
-                        <input class="form-control" type="email" name="tenemail" id="tenemail" value="<?php if(isset($_REQUEST['tenemail'])) echo $_REQUEST['tenemail']?>">
+                        <label for="email" class="form-label">Email: </label>
+                        <input class="form-control" type="email" name="email" id="email" value="<?php if(isset($_REQUEST['email'])) echo $_REQUEST['email']?>">
                     </div>
                     <div class="formwrapchild">
-                        <label class="form-label" for="tenphone">Phone Number: </label>
-                        <input class="form-control" type="text" name="tenphone" id="tenphone" value="<?php if(isset($_REQUEST['tenphone'])) echo $_REQUEST['tenphone']?>">
-                    </div>
-                </div>
-                <div class="formwrap">
-                    <div class="formwrapchild">
-                        <label class="form-label" for="tenaddress">Address: </label><br>
-                        <textarea class="form-control" name="tenaddress" id="tenaddress" cols="30" rows="2"><?php if(isset($_REQUEST['tenaddress'])) echo $_REQUEST['tenaddress']?></textarea>
-                    </div>
-                    <div class="formwrapchild">
-                        <label class="form-label" for="tenaddress">National Identification Number: </label>
-                        <input class="form-control" type="text" name="tennin" id="tenaddress" value="<?php if(isset($_REQUEST['tennin'])) echo $_REQUEST['tennin']?>">
+                        <label for="lastname" class="form-label">Phone Number: </label>
+                        <input class="form-control" type="text" name="phone" id="phone" value="<?php if(isset($_REQUEST['phone'])) echo $_REQUEST['phone']?>">
                     </div>
                 </div>
                 <div class="formwrap">
                     <div class="formwrapchild">
-                        <label class="form-label" for="tenpassword">Password: </label>
-                        <input class="form-control" type="password" name="tenpassword" id="tenpassword">
+                        <label for="bankname" class="form-label">Bank Name: </label>
+                        <input class="form-control" type="text" name="bankname" id="bankname" value="<?php if(isset($_REQUEST['bankname'])) echo $_REQUEST['bankname']?>">
                     </div>
                     <div class="formwrapchild">
-                        <label class="form-label" for="tenconfirmpassword">Confirm Password: </label>
-                        <input class="form-control" type="password" name="tenconfirmpassword" id="tenconfirmpassword">
+                        <label for="accountnumber" class="form-label">Account Number: </label>
+                        <input class="form-control" type="number" name="accountnumber" id="accountnumber" value="<?php if(isset($_REQUEST['accountnumber'])) echo $_REQUEST['accountnumber']?>">
+                    </div>
+                </div>
+                <div class="formwrap">
+                    <div class="formwrapchild">
+                        <label for="accountname" class="form-label">Account Name: </label>
+                        <input class="form-control" type="text" name="accountname" id="accountname" value="<?php if(isset($_REQUEST['accountname'])) echo $_REQUEST['accountname']?>">
+                    </div>
+                    <div class="formwrapchild">
+                        <label for="nin" class="form-label">National Identification Number: </label>
+                        <input class="form-control" type="text" name="nin" id="nin" value="<?php if(isset($_REQUEST['nin'])) echo $_REQUEST['nin']?>">
+                    </div>
+                </div>
+                <div class="formwrap">
+                    <div class="formwrapchild">
+                        <label class="form-label" for="propertyvalidationnumber">Property Validation Number: </label>
+                        <input class="form-control" type="text" name="propertyvalidationnumber" id="propertyvalidationnumber" value="<?php if(isset($_REQUEST['propertyvalidationnumber'])) echo $_REQUEST['propertyvalidationnumber']?>">
+                    </div>
+                    <div class="formwrapchild">
+                        <label class="form-label" for="address">Address: </label><br>
+                        <textarea class="form-control" name="address" id="address" cols="30" rows="2"><?php if(isset($_REQUEST['address'])) echo $_REQUEST['address']?></textarea>
+                    </div>
+                </div>
+                <div class="formwrap">
+                    <div class="formwrapchild">
+                        <label class="form-label" for="password">Password: </label>
+                        <input class="form-control" type="password" name="password" id="password">
+                    </div>
+                    <div class="formwrapchild">
+                        <label class="form-label" for="confirmpassword">Confirm Password: </label>
+                        <input class="form-control" type="password" name="confirmpassword" id="confirmpassword">
+                    </div>
+                </div>
+                <div class="formwrap">
+                    <div class="formwrapchild">
+                        <label class="form-label" for="text">Admin ID: </label>
+                        <input class="form-control" type="text" name="admin_id" id="admin_id" value="<?php if(isset($_REQUEST['admin_id'])) echo $_REQUEST['admin_id']?>">
+                    </div>
+                    <div class="formwrapchild">
+                        <label class="form-label" for="keylogin">Key: </label>
+                        <input class="form-control" type="password" name="keylogin" id="keylogin" value="<?php if(isset($_REQUEST['firstname'])) echo $_REQUEST['firstname']?>">
                     </div>
                 </div>
                 <button type="reset" name="btnreset" id="btnreset">Reset</button>
-                <button type="submit" name="tenbtnregister" id="tenbtnregister">Register</button>
+                <button type="submit" name="btnregister" id="btnregister">Register</button>
             </form>
         </div>
 
@@ -204,21 +235,21 @@
     </div>
     <script src="jquery/jquery.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#registerform1').hide()
+    // $(document).ready(function(){
+    //     $('#registerform1').hide()
     
 
-        $('.regtype').click(function(){
-            if($('#reglandlord').prop("checked")){
-                $('#registerform1').show();
-                $('#registerform2').hide();
-            }else{
-                $('#registerform1').hide();
-                $('#registerform2').show();
-            }
-        })
-    }
-        );
+    //     $('.regtype').click(function(){
+    //         if($('#reglandlord').prop("checked")){
+    //             $('#registerform1').show();
+    //             $('#registerform2').hide();
+    //         }else{
+    //             $('#registerform1').hide();
+    //             $('#registerform2').show();
+    //         }
+    //     })
+    // }
+        //);
 </script>
 
 

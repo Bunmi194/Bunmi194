@@ -153,5 +153,47 @@
             return $record;
         }
         //getapartmentbyid
+
+        //check for inspection
+
+        function checkForInspection($tenantid, $apartmentid){
+            $statement = $this->dbcon->prepare("SELECT COUNT(inspection_id) FROM inspection WHERE tenants_id=? AND apartments_id=?");
+            $statement->bind_param("ii", $tenantid, $apartmentid);
+            $statement->execute();
+            $count = $statement->get_result();
+            return $count->fetch_assoc();
+        }
+
+        //check for inspection
+        
+        //insert into inspection
+        function inspection($tenantid, $apartmentid){
+            //prepare
+            $stmt = $this->dbcon->prepare("INSERT INTO inspection (tenants_id, apartments_id) VALUES (?,?)");
+            //bind
+            $stmt->bind_param("ii", $tenantid, $apartmentid);
+            //execute
+            $stmt->execute();
+
+            if($stmt->affected_rows > 0){
+                $output = $stmt->insert_id;
+            }else{
+                $output = false.$stmt->error;
+            }
+            return $output;
+        }
+    //insert into inspection
+
+    //logout
+
+    function logout(){
+        session_start();
+        session_destroy();
+        //redirect to login page
+        header("Location: signin.php");
+        exit();
+    }
+
+    //logout
     }
 ?>

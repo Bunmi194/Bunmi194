@@ -2,29 +2,27 @@
 session_start();
 include_once "shared/constants.php";
 include_once "shared/landlord.php";
-echo "<pre>";
-print_r($_REQUEST);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_REQUEST);
+// echo "</pre>";
 echo "<pre>";
 print_r($_SESSION);
 echo "</pre>";
-    if(isset($_REQUEST['btnno']) || isset($_REQUEST['btncancel'])){
-        unset($_SESSION['inspection_id']);
-        header("Location: messages.php");
-        exit();
-    }elseif(isset($_REQUEST['btnyes'])){
+    if(isset($_REQUEST['btnreject'])){
         //rejected
-        $msg = "cancelled";
         $rejectmsg = new Landlord();
-        $out = $rejectmsg->rejectRequest($msg, $_SESSION['inspection_id']);
-       var_dump($out);
-        if($out){
-            $output = "Request has been successfully cancelled";
+        $out = $rejectmsg->rejectRequest($_REQUEST['id']);
+        if($out == true){
+            $_SESSION['cancel'] = "Request has been successfully cancelled.";
+            header("Location: inspectionbooked.php");
+            exit();
         }else{
-            $output = "Oops! Something went wrong";
+            $_SESSION['cancel'] = "Request has been successfully cancelled.";
+            header("Location: inspectionbooked.php");
+            exit();
         }
-        header("Location: messages.php");
-        return $output;
+        //header("Location: messages.php");
+
 
     }elseif(isset($_REQUEST['btnaccept'])){
         //accepted
@@ -40,15 +38,27 @@ echo "</pre>";
         $date = $_REQUEST['date'];
         $time = $_REQUEST['time'];
         $bookmsg = new Landlord();
-        $out = $bookmsg->acceptRequest($msg, $date, $time, $_SESSION['inspection_id']);
+        $out = $bookmsg->acceptRequest($msg, $date, $time, $_REQUEST['id']);
 
-        $_SESSION['booked'] = "You have successfully booked a property for inspection. Please check your inspection dashboard to keep track of events.";
-        header("Location: inspectionbooked.php");
+            if ($out == 1) {
+                $_SESSION['booked'] = "You have successfully booked a property for inspection. Please check your inspection dashboard to keep track of events.";
+                header("Location: inspectionbooked.php");
+                exit();
+            }else{
+                $_SESSION['booked'] = "Oops! Something went wrong. Please try again later.";
+                header("Location: inspectionbooked.php");
+                exit();
+            }
+
+        
        
     //    var_dump(date($_REQUEST['date']));
     //    var_dump(date($_REQUEST['time']));
 //       echo date($_REQUEST['time']);
         }
+    }else{
+        header("Location: inspectionbooked.php");
+        exit();
     }
 
 ?>

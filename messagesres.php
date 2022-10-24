@@ -2,7 +2,7 @@
         session_start();
         unset($_SESSION['inspection_id']);
         $_SESSION['inspection_id'] = $_REQUEST['id'];
-        include_once "header.php"
+        include_once "portalheader.php";
 ?>
 <style>
     .forms{

@@ -1,6 +1,6 @@
 <?php
 session_start();
-    include_once "header.php";
+    include_once "portalheader.php";
     include_once "shared/constants.php";
     include_once "shared/landlord.php";
     $landlord_id = $_SESSION['id'];

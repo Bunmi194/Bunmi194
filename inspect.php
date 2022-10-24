@@ -1,4 +1,5 @@
 <?php
+    include_once "portalheader.php";
 session_start();
 $_SESSION['apartmentid'] = $_REQUEST["apartmentid"];
     include_once "header.php";

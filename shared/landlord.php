@@ -216,6 +216,168 @@
 
         //upload property ends here
 
+        //update property
+
+        function updateProperty($title, $address, $price, $description, $category_id, $location_id, $apartments_id){
+            //prepare statement
+            $statement = $this->dbaccess->prepare("UPDATE apartments SET title=?, address=?, price=?, description=?, category_id=?, location_id=? WHERE apartments_id=?");
+            //bind
+            $statement->bind_param("ssisiii", $title, $address, $price, $description, $category_id, $location_id, $apartments_id);
+            //execute
+            $statement->execute();
+            $upderror = array();
+            $output = array();
+
+            if($statement->error){
+                $upderror[] = "Oops! something went wrong ".$statement->error;
+
+            }else{
+                //upload first image
+                if(isset($_FILES['image1']) && !empty($_FILES['image1']['name'])){
+                $filename1 = $_SESSION['lastname'].$_FILES['image1']['name'];
+                $file_tmp1 = $_FILES['image1']['tmp_name'];
+                $destination = "properties/$filename1";
+                $upload1 = move_uploaded_file($file_tmp1, $destination);
+                    //prepare statement
+                $statement = $this->dbaccess->prepare("INSERT INTO images_apartments (url, apartments_id) VALUES (?,?)");
+                //bind
+                $statement->bind_param("si", $filename1, $apartments_id);
+                //execute
+                $statement->execute();
+
+                if($statement->error){
+                    $upderror[] = "Oops! something went wrong ".$statement->error;
+                    
+                }else{
+                    $output[] = "Image1 uploaded";
+                }
+                }
+                //upload second image
+                if(isset($_FILES['image2']) && !empty($_FILES['image2']['name'])){
+
+                //upload second image
+                
+                $filename2 = $_SESSION['lastname'].$_FILES['image2']['name'];
+                $file_tmp2 = $_FILES['image2']['tmp_name'];
+                $destination = "properties/$filename2";
+                $upload2 = move_uploaded_file($file_tmp2, $destination);
+                
+                //prepare statement
+                $statement = $this->dbaccess->prepare("INSERT INTO images_apartments (url, apartments_id) VALUES (?,?)");
+                //bind
+                $statement->bind_param("si", $filename2, $apartments_id);
+                //execute
+                $statement->execute();
+
+                if($statement->error){
+                    $upderror[] = "Oops! something went wrong ".$statement->error;
+                    
+                }else{
+                    $output[] = "Image1 uploaded";
+                }
+            }
+
+            //third image
+
+                
+            if(isset($_FILES['image3']) && !empty($_FILES['image3']['name'])){
+
+                //upload second image
+                
+                $filename3 = $_SESSION['lastname'].$_FILES['image3']['name'];
+                $file_tmp3 = $_FILES['image3']['tmp_name'];
+                $destination = "properties/$filename3";
+                $upload3 = move_uploaded_file($file_tmp3, $destination);
+                
+                //prepare statement
+                //
+                $statement = $this->dbaccess->prepare("INSERT INTO images_apartments (url, apartments_id) VALUES (?,?)");
+
+                $statement->bind_param("si", $filename3, $apartments_id);
+                //execute
+                $statement->execute();
+
+                if($statement->error){
+                    $upderror[] = "Oops! something went wrong ".$statement->error;
+                    
+                }else{
+                    $output[] = "Image1 uploaded";
+                }
+            }
+
+
+            //third image
+
+            //fourth image
+
+                
+            if(isset($_FILES['image4']) && !empty($_FILES['image4']['name'])){
+
+                //upload second image
+                
+                $filename4 = $_SESSION['lastname'].$_FILES['image4']['name'];
+                $file_tmp4 = $_FILES['image4']['tmp_name'];
+                $destination = "properties/$filename4";
+                $upload4 = move_uploaded_file($file_tmp4, $destination);
+                
+                //prepare statement
+                $statement = $this->dbaccess->prepare("INSERT INTO images_apartments (url, apartments_id) VALUES (?,?)");
+                //bind
+                $statement->bind_param("si", $filename4, $apartments_id);
+                //execute
+                $statement->execute();
+
+                if($statement->error){
+                    $upderror[] = "Oops! something went wrong ".$statement->error;
+                    
+                }else{
+                    $output[] = "Image1 uploaded";
+                }
+            }
+
+
+            //fourth image
+
+            //fifth image
+
+                
+            if(isset($_FILES['image5']) && !empty($_FILES['image5']['name'])){
+
+                //upload second image
+                
+                $filename5 = $_SESSION['lastname'].$_FILES['image5']['name'];
+                $file_tmp5 = $_FILES['image5']['tmp_name'];
+                $destination = "properties/$filename5";
+                $upload5 = move_uploaded_file($file_tmp5, $destination);
+                
+                //prepare statement
+                $statement = $this->dbaccess->prepare("INSERT INTO images_apartments (url, apartments_id) VALUES (?,?)");
+                //bind
+                $statement->bind_param("si", $filename5, $apartments_id);
+                //execute
+                $statement->execute();
+
+                if($statement->error){
+                    $upderror[] = "Oops! something went wrong ".$statement->error;
+                    
+                }else{
+                    $output[] = "Image1 uploaded";
+                }
+            }
+
+
+            //fifth image
+
+            //limit 6
+
+
+            //limit 6
+        }
+        
+        return $upderror;
+    }
+
+        //update property
 
         //login begins
         function logIn($email, $password){
@@ -259,23 +421,6 @@
         }
         //end logout
 
-        //insert into inspection
-            function inspection($tenantid, $apartmentid){
-                //prepare
-                $stmt = $this->dbaccess->prepare("INSERT INTO inspection (tenants_id, apartments_id) VALUES (?,?)");
-                //bind
-                $stmt->bind_param("ii", $tenantid, $apartmentid);
-                //execute
-                $stmt->execute();
-
-                if($stmt->affected_rows > 0){
-                    $output = $stmt->insert_id;
-                }else{
-                    $output = false.$stmt->error;
-                }
-                return $output;
-            }
-        //insert into inspection
 
         //get all messages
 
@@ -365,7 +510,7 @@
 
         function getAllInspections($landlords_id){
             $message = "booked";
-            $stmt = $this->dbaccess->prepare("SELECT * FROM messages_apartment JOIN apartments ON messages_apartment.apartment_id = apartments.apartments_id LEFT JOIN landlords ON apartments.landlords_id = landlords.landlord_id LEFT JOIN inspection ON inspection.apartments_id = apartments.apartments_id WHERE landlords.landlord_id=? AND inspection.status = ? GROUP BY apartment_id");
+            $stmt = $this->dbaccess->prepare("SELECT * FROM messages_apartment JOIN apartments ON messages_apartment.apartment_id = apartments.apartments_id LEFT JOIN landlords ON apartments.landlords_id = landlords.landlord_id LEFT JOIN inspection ON inspection.apartments_id = apartments.apartments_id WHERE landlords.landlord_id=? AND inspection.status = ? GROUP BY apartment_id ORDER BY inspection.inspection_date DESC");
             $stmt->bind_param("is", $landlords_id, $message);
             $stmt->execute();
 
@@ -386,7 +531,7 @@
         //getallproperties
 
         function getAllProperties($landlords_id){
-            $stmt = $this->dbaccess->prepare("SELECT * FROM apartments JOIN apartment_location ON apartments.location_id = apartment_location.location_id WHERE landlords_id=?");
+            $stmt = $this->dbaccess->prepare("SELECT * FROM apartments JOIN apartment_location ON apartments.location_id = apartment_location.location_id WHERE landlords_id=? ORDER BY apartments.date DESC");
             $stmt->bind_param("i", $landlords_id);
             $stmt->execute();
 
@@ -404,7 +549,29 @@
 
         //getallproperties
 
-        
+        //get properties by id
+
+        function getPropertiesById($apartments_id){
+            $stmt = $this->dbaccess->prepare("SELECT * FROM apartments JOIN apartment_location ON apartments.location_id = apartment_location.location_id WHERE apartments_id=?");
+            $stmt->bind_param("i", $apartments_id);
+            $stmt->execute();
+
+            $resultset = $stmt->get_result();
+            $record = array();
+            if($resultset->num_rows > 0){
+                while ($row = $resultset->fetch_assoc()) {
+                    $record[] = $row;
+                }
+            }else{
+                $record[] = "NO RECORD";
+            }
+            return $record;
+        }
+
+        //get properties by id
+
+
+
         //property count
 
         function propertyCount($landlords_id){
@@ -452,8 +619,9 @@
 
 
         //rejectrequest
-            function rejectRequest($msg, $inspectionid){
-                $stmt = $this->dbaccess->prepare("UPDATE inspection SET status=? WHERE inspection_id=?");
+            function rejectRequest($inspectionid){
+                $msg = "cancelled";
+                $stmt = $this->dbaccess->prepare("UPDATE inspection SET inspection.status=? WHERE inspection_id=?");
                 $stmt->bind_param("si", $msg, $inspectionid);
                 $stmt->execute();
 
@@ -462,7 +630,7 @@
                 }else{
                     $output = false;
                 }
-                return $output;
+                return $stmt->affected_rows;
 
             }
         //rejectrequest
@@ -485,6 +653,45 @@
 
         }
     //acceptrequest
+
+    //delete property
+        function deleteProperty($propertyid){
+            
+            //prepare
+            $statement = $this->dbaccess->prepare("DELETE FROM images_apartments WHERE apartments_id=?");
+            //bind
+            $statement->bind_param("i",$propertyid);
+            $statement->execute();
+
+            //second table
+            $statement1 = $this->dbaccess->prepare("DELETE FROM apartments WHERE apartments_id=?");
+            //bind
+            $statement1->bind_param("i",$propertyid);
+            $statement1->execute();
+
+
+            if ($statement->affected_rows == 1 && ($statement1->affected_rows == 1)) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+            
+        
+
+    //delete property
+
+        function checkInspectionBeforeDelete($propertyid){
+            $status = "booked";
+            //prepare
+            $statement2 = $this->dbaccess->prepare("SELECT COUNT(apartments_id) FROM inspection WHERE apartments_id=? AND status=?");
+            //bind
+            $statement2->bind_param("is", $propertyid, $status);
+            $statement2->execute();
+            $record = $statement2->get_result();
+            $num = $record->fetch_assoc();
+            return $num;
+        }
     }
 
 

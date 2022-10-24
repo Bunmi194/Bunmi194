@@ -1,4 +1,5 @@
-<?php 
+<?php   
+        include_once "portalheader.php";
         session_start();
         include_once "header.php";
 ?>
@@ -15,9 +16,9 @@
         $landmessage = new Landlord();
         $resultset = $landmessage->getAllInspections($_SESSION['id']);
         
-        echo "<pre>";
-        print_r($_SESSION);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($_SESSION);
+        // echo "</pre>";
 
         
         echo "<pre>";
@@ -31,13 +32,13 @@
             echo $output;
         }
     ?>
-    <h2>My Messages</h2>
+    <h2>My Inspections</h2>
     <table class="table">
         <thead>
             <th>S/N</th>
             <th style="text-align:center">Property Title</th>
             <th>Inspection Date</th>
-            <th>Status</th>
+            <th>Inspection Status</th>
             <th>Booked Date</th>
             <th>Date Uploaded</th>
         </thead>

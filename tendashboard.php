@@ -1,5 +1,15 @@
 <?php
-    include_once "header.php";
+    session_start();
+    include_once "portalheader.php";
+    include_once "shared/tenant.php";
+    $tenant = new Tenant();
+    $count = $tenant->getInspectionCount($_SESSION['id']);
+    $amountCount = $tenant->amountCount($_SESSION['id']);
+    $countRent = $tenant->countRentedProperties($_SESSION['id']);
+    // echo "<pre>";
+    // print_r($countRent);
+    // echo "</pre>";
+    // exit();
 ?>
 <style>
     .username{
@@ -91,24 +101,36 @@
             </div>
             <div class="dashwrapchild" id="dashwrapchild2">
                 <div class="header">
-                    <button type="button" class="btn btn-success">Rented Properties</button>
-                    <button type="button" class="btn btn-primary">Payments</button>
-                    <button type="button" class="btn btn-secondary">Inspections</button>
+                    <a href="tenproperties.php" class="btn btn-success">Rented Properties: <?php echo $countRent['COUNT(payments_id)']?></a>
+                    <a href="tenproperties.php" class="btn btn-primary">Payments: <?php 
+                        if ($amountCount[0]['SUM(amount)'] > 0) {
+                            echo "&#8358;".$amountCount[0]['SUM(amount)'];
+                        }else{
+                            echo "&#8358;0";
+                        }
+                    ?></a>
+                    <a href="tenmessages.php" class="btn btn-secondary">Inspections: <?php echo $count['COUNT(inspection_id)'] ?></a>
                     <button name="tenbtnlogout" type="button" class="btn btn-primary"><a href="logout.php">Log Out</a></button>
                     
                 </div>
                 <h2 class="dashboardblock landashboard">My Dashboard</h2>
                 <div class="innerdashboard">
                     <div class="innerbig inspection">
-                        <p>Total: 15</p>
+                        <p>Total: <?php echo $count['COUNT(inspection_id)'] ?></p>
                         <p>Inspections</p>
                     </div>
                     <div class="innerbig payments">
-                        <p>Total: 350,000</p>
+                        <p>Total: <?php 
+                        if ($amountCount[0]['SUM(amount)'] > 0) {
+                            echo "&#8358;".$amountCount[0]['SUM(amount)'];
+                        }else{
+                            echo "&#8358;0";
+                        }
+                    ?></p>
                         <p>Payments</p>
                     </div>
                     <div class="innerbig apartments">
-                        <p>Total: 22</p>
+                        <p>Total: <?php echo $countRent['COUNT(payments_id)']?></p>
                         <p>Rented Apartments</p>
                     </div>
                 </div>

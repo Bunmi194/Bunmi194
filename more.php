@@ -1,6 +1,10 @@
 <?php
 session_start();
-    include_once "header.php";
+    if (isset($_SESSION['lastname'])) {
+        include_once "portalheader.php";
+    }else{
+        include_once "header.php";
+    }
     include_once "shared/common.php";
     include_once "shared/constants.php";
 ?>
@@ -83,6 +87,13 @@ session_start();
                     echo "</div>";
                     unset($_SESSION['apartmentinspect']);
                 }
+
+                if(isset($_SESSION['counter'])){
+                    echo "<div class='alert alert-info' style='text-align:center; font-weight: bold'>";
+                    echo $_SESSION['counter'];
+                    echo "</div>";
+                    unset($_SESSION['counter']);
+                }
             ?>
         
     </div>
@@ -98,8 +109,7 @@ session_start();
             </div>
             <div class="row">
                 <?php
-                    foreach ($result as $key => $value) {
-                        
+                    foreach ($result as $key => $value) {                        
                     
                 ?>
                 <div class="col-3">
@@ -117,8 +127,8 @@ session_start();
                 
                 <div class="action">
                         
-                <form action="inspect.php" method="POST" class="forms">
-                            <button type="submit" name="btninspect">Inspect</button>
+                <form action="inspectresponse.php" method="POST" class="forms">
+                            <button type="submit" name="btninspect" id="btninspect">Inspect</button>
                             <input type="hidden" name="apartmentid" value="<?php echo $_REQUEST['apartmentid']
                             ?>">
                         <input type="hidden" name="amount" value="<?php echo $result[0]['price']
@@ -147,6 +157,17 @@ session_start();
     <script src="jquery/jquery.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
+            $('#btninspect').click(
+                function inspect(e){
+                    let result = confirm("Are you sure you want to inspect this property?");
+                    if (result == false) {
+                        e.preventDefault();
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+            )
             $('.imgprop').click(function(){
                 let img = $(this).attr("src");
                 //alert(img);

@@ -1,5 +1,10 @@
 <?php
-    include_once "header.php";
+    session_start();
+    if (isset($_SESSION['lastname'])) {
+        include_once "portalheader.php";
+    }else{
+        include_once "header.php";
+    }
     include_once "shared/common.php";
     include_once "shared/constants.php";
 ?>

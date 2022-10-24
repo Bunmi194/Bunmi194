@@ -1,4 +1,4 @@
-<?php include_once "header.php"?>
+<?php include_once "portalheader.php"?>
 <style>
     #divform{
         margin: 100px 10px;
@@ -7,11 +7,16 @@
         margin-right: 30px;
     }
 </style>
+<?php
+    echo "<pre>";
+    print_r($_REQUEST);
+    echo "</pre>";
+?>
 <div class="container mt-5">
     <div class="row">
         <div class="col form-control" id="divform">
             <h2>Choose a date and time slot</h2>
-            <form action="processinspection.php" method="POST" class="form-control mt-5 mb-5 pt-5">
+            <form action="processinspection.php?id=<?php echo $_REQUEST['id']?>" method="POST" class="form-control mt-5 mb-5 pt-5">
                 <div>
                     <label for="date" class="form-label">Select a date</label>
                     <input type="date" name="date" id="date" class="form-control mt-2 mb-2">

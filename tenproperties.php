@@ -11,9 +11,9 @@
     <?php
 
         include_once "shared/constants.php";
-        include_once "shared/landlord.php";
-        $landmessage = new Landlord();
-        $resultset = $landmessage->getAllProperties($_SESSION['id']);
+        include_once "shared/tenant.php";
+        $tenantprop = new Tenant();
+        $resultset = $tenantprop->getRentedProperties($_SESSION['id']);
         
         echo "<pre>";
         print_r($_SESSION);
@@ -41,7 +41,12 @@
         }
     ?>
     <h2>My Properties</h2>
-    <table class="table">
+    <?php
+        if ($resultset[0] == "NO RECORD") {
+            echo "<div class='alert alert-danger'>NO RECORD FOUND</div>";
+        }else{
+    ?>
+        <table class="table">
         <thead>
             <th>S/N</th>
             <th style="text-align:center">Property Title</th>
@@ -49,8 +54,6 @@
             <th>Price</th>
             <th>Status</th>
             <th>Location</th>
-            <th>Date Uploaded</th>
-            <th>Action</th>
         </thead>
         <tbody>
         <?php
@@ -64,23 +67,16 @@
                 <td><?php echo $value['price'] ?></td>
                 <td><?php echo $value['status'] ?></td>
                 <td><?php echo $value['location'] ?></td>
-                <td><?php echo date('jS M Y', strtotime($value['date'])) ?></td>
-                <td>
-                    <form action="editproperty.php?apartmentid=<?php echo $value['apartments_id'] ?>" method="POST">
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                        <input type="hidden" name="apt" value="<?php echo $value['apartments_id'] ?>">
-                    </form>
-                    <form action="deleteproperty.php?apartmentid=<?php echo $value['apartments_id'] ?>" method="POST" onsubmit="deleteCheck(event)">
-                        <button type="submit" class="btn btn-danger" name="btndelete" id="btndel">Delete</button>
-                        <input type="hidden" name="apt" value="<?php echo $value['apartments_id'] ?>">
-                    </form>
-                </td>
+            
                 
         <?php
             }
         ?>
         </tbody>
     </table>
+    <?php
+        }
+    ?>
     <script type="text/javascript" language="javascript">
         function deleteCheck(e){            
         let deleteprompt = confirm("Are you sure you want to delete this property?");
