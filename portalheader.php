@@ -1,6 +1,10 @@
 <?php
-    ob_start();
-    session_start();   
+    session_start();
+    if (!isset($_SESSION['logger']) || ($_SESSION['logger'] != "K!NG_DAViD")) {
+        $_SESSION['break'] = "You need to log in to access the page.";
+        header("Location: signin.php");
+        exit();
+    }
 
 ?>
 <!DOCTYPE html>
@@ -297,3 +301,4 @@
                     </ul>
                 </div>
             </nav>
+

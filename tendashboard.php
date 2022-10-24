@@ -1,6 +1,118 @@
 <?php
     session_start();
     include_once "portalheader.php";
+?>
+    <?php    
+    // session_start();
+    // if (isset($_SESSION['lastname'])) {
+    //     //check
+    // }else{
+    //     include_once "header.php";
+    // }  
+    include_once "shared/constants.php";
+
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["btnregister"])){
+        //validate
+        
+    $errors = array();
+        // validate
+        $errors = array(); //empty array
+        if(empty($_REQUEST['firstname'])){
+            $errors['errfirstname'] = "Firstname field is required!";
+        }
+        if(empty($_REQUEST['lastname'])){
+            $errors['errlastname'] = "Lastname field is required!";
+        }
+        if(empty($_REQUEST['address'])){
+            $errors['erraddress'] = "Address field is required!";
+        }
+        if(empty($_REQUEST['email'])){
+            $errors['erremail'] = "Email Address field is required!";
+        }
+        if(empty($_REQUEST['phone'])){
+            $errors['errphone'] = "Phone Number field is required!";
+        }
+        if(empty($_REQUEST['nin'])){
+            $errors['errnin'] = "NIN field is required!";
+        }
+        if(empty($_REQUEST['admin_id'])){
+            $errors['erradmin_id'] = "Admin ID field is required!";
+        }
+        if(empty($_REQUEST['keylogin'])){
+            $errors['errkeylogin'] = "Key field is required!";
+        }
+        if(empty($_REQUEST['propertyvalidationnumber'])){
+            $errors['errpropertyvalidationnumber'] = "Property Validation Number field is required!";
+        }
+        if(empty($_REQUEST['password'])){
+            $errors['errpwd'] = "Password field is required!";
+        }elseif(strlen($_REQUEST['password']) < 6){
+            $errors['errpwd'] = "Password must be more than 5 characters!";
+        }elseif($_REQUEST['password'] != $_REQUEST['confirmpassword']){
+            $errors['errpwd'] = "Passwords don't match";
+        }
+        //check if there is no validation error
+        if(empty($errors)){
+            #process the form data            
+            include_once "shared/landlord.php";
+
+        //end validate
+        $landlord = new Landlord();
+    $insert = $landlord->register($_REQUEST['lastname'], $_REQUEST['firstname'], $_REQUEST['address'], $_REQUEST['email'], $_REQUEST['phone'], $_REQUEST['password'], $_REQUEST['propertyvalidationnumber'], $_REQUEST['accountname'], $_REQUEST['accountnumber'], $_REQUEST['bankname'], $_REQUEST['nin'], $_REQUEST['admin_id'], $_REQUEST['keylogin']) ;
+    if($insert != "cool"){
+        echo $insert;
+    }else{
+        header("Location: tendashboard.php");
+    }
+    }
+}
+    //tenant form
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["tenbtnregister"])){
+        //validate
+        
+    $errors = array();
+    // validate
+    $errors = array(); //empty array
+    if(empty($_REQUEST['tenfirstname'])){
+        $errors['errtenfirstname'] = "Firstname field is required!";
+    }
+    if(empty($_REQUEST['tenlastname'])){
+        $errors['errtenlastname'] = "Lastname field is required!";
+    }
+    if(empty($_REQUEST['tenaddress'])){
+        $errors['errtenaddress'] = "Address field is required!";
+    }
+    if(empty($_REQUEST['tenemail'])){
+        $errors['errtenemail'] = "Email Address field is required!";
+    }
+    if(empty($_REQUEST['tenphone'])){
+        $errors['errtenphone'] = "Phone Number field is required!";
+    }
+    if(empty($_REQUEST['tennin'])){
+        $errors['errnin'] = "NIN field is required!";
+    }
+    if(empty($_REQUEST['tenpassword'])){
+        $errors['errtenpwd'] = "Password field is required!";
+    }elseif(strlen($_REQUEST['tenpassword']) < 6){
+        $errors['errtenpwd'] = "Password must be more than 5 characters!";
+    }elseif($_REQUEST['tenpassword'] != $_REQUEST['tenconfirmpassword']){
+        $errors['errtenpwd'] = "Passwords don't match";
+    }
+    //check if there is no validation error
+    if(empty($errors)){
+        #process the form data            
+        include_once "shared/tenant.php";
+        $tenant = new Tenant();
+        $insert = $tenant->register($_REQUEST['tenlastname'], $_REQUEST['tenfirstname'], $_REQUEST['tenaddress'], $_REQUEST['tenemail'], $_REQUEST['tenphone'], $_REQUEST['tenpassword'], $_REQUEST['tennin']) ;
+        if($insert != "cool"){
+            echo $insert;
+        }else{
+
+            header("Location: index.php");
+        }
+        }
+}
+    
     include_once "shared/tenant.php";
     $tenant = new Tenant();
     $count = $tenant->getInspectionCount($_SESSION['id']);
@@ -73,7 +185,7 @@
                     <img src="images/yaba.jpg" alt="profile photo" class="img-fluid">
                 </div>
                 <div class="username">
-                    <h3>Bunmi Oladipupo</h3>
+                    <h3><?php echo $_SESSION['firstname']." ".$_SESSION['lastname']?></h3>
                 </div>
                 <div class="dashboardbottom">
                     <a href="#">

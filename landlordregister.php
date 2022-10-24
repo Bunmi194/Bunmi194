@@ -152,7 +152,7 @@
             <h1><b>Get Homified!</b></h1>
         </div>
         <div class="registerstyle2">
-        <form action="landlordregister.php" method="POST" id="registerform1" class="form-control">
+        <form action="landashboard.php" method="POST" id="registerform1" class="form-control">
                 <div class="formwrap">
                     <div class="formwrapchild">
                         <label for="firstname" class="form-label">First Name: </label>

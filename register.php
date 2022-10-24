@@ -1,3 +1,6 @@
+<?php
+include_once "shared/constants.php";
+?>
 <?php    
     session_start();
     if (isset($_SESSION['lastname'])) {
@@ -5,65 +8,69 @@
     }else{
         include_once "header.php";
     }  
-    include_once "shared/constants.php";
 
-    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["btnregister"])){
+    //if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["btnregister"]) ){
         //validate
         
-    $errors = array();
+    //$errors = array();
         // validate
-        $errors = array(); //empty array
-        if(empty($_REQUEST['firstname'])){
-            $errors['errfirstname'] = "Firstname field is required!";
-        }
-        if(empty($_REQUEST['lastname'])){
-            $errors['errlastname'] = "Lastname field is required!";
-        }
-        if(empty($_REQUEST['address'])){
-            $errors['erraddress'] = "Address field is required!";
-        }
-        if(empty($_REQUEST['email'])){
-            $errors['erremail'] = "Email Address field is required!";
-        }
-        if(empty($_REQUEST['phone'])){
-            $errors['errphone'] = "Phone Number field is required!";
-        }
-        if(empty($_REQUEST['nin'])){
-            $errors['errnin'] = "NIN field is required!";
-        }
-        if(empty($_REQUEST['admin_id'])){
-            $errors['erradmin_id'] = "Admin ID field is required!";
-        }
-        if(empty($_REQUEST['keylogin'])){
-            $errors['errkeylogin'] = "Key field is required!";
-        }
-        if(empty($_REQUEST['propertyvalidationnumber'])){
-            $errors['errpropertyvalidationnumber'] = "Property Validation Number field is required!";
-        }
-        if(empty($_REQUEST['password'])){
-            $errors['errpwd'] = "Password field is required!";
-        }elseif(strlen($_REQUEST['password']) < 6){
-            $errors['errpwd'] = "Password must be more than 5 characters!";
-        }elseif($_REQUEST['password'] != $_REQUEST['confirmpassword']){
-            $errors['errpwd'] = "Passwords don't match";
-        }
-        //check if there is no validation error
-        if(empty($errors)){
-            #process the form data            
-            include_once "shared/landlord.php";
+//         $errors = array(); //empty array
+//         if(empty($_REQUEST['firstname'])){
+//             $errors['errfirstname'] = "Firstname field is required!";
+//         }
+//         if(empty($_REQUEST['lastname'])){
+//             $errors['errlastname'] = "Lastname field is required!";
+//         }
+//         if(empty($_REQUEST['address'])){
+//             $errors['erraddress'] = "Address field is required!";
+//         }
+//         if(empty($_REQUEST['email'])){
+//             $errors['erremail'] = "Email Address field is required!";
+//         }
+//         if(empty($_REQUEST['phone'])){
+//             $errors['errphone'] = "Phone Number field is required!";
+//         }
+//         if(empty($_REQUEST['nin'])){
+//             $errors['errnin'] = "NIN field is required!";
+//         }
+//         if(empty($_REQUEST['admin_id'])){
+//             $errors['erradmin_id'] = "Admin ID field is required!";
+//         }
+//         if(empty($_REQUEST['keylogin'])){
+//             $errors['errkeylogin'] = "Key field is required!";
+//         }
+//         if(empty($_REQUEST['propertyvalidationnumber'])){
+//             $errors['errpropertyvalidationnumber'] = "Property Validation Number field is required!";
+//         }
+//         if(empty($_REQUEST['password'])){
+//             $errors['errpwd'] = "Password field is required!";
+//         }elseif(strlen($_REQUEST['password']) < 6){
+//             $errors['errpwd'] = "Password must be more than 5 characters!";
+//         }elseif($_REQUEST['password'] != $_REQUEST['confirmpassword']){
+//             $errors['errpwd'] = "Passwords don't match";
+//         }
+//         //check if there is no validation error
+//         if(empty($errors)){
+//             #process the form data            
+//             include_once "shared/landlord.php";
 
-        //end validate
-        $landlord = new Landlord();
-    $insert = $landlord->register($_REQUEST['lastname'], $_REQUEST['firstname'], $_REQUEST['address'], $_REQUEST['email'], $_REQUEST['phone'], $_REQUEST['password'], $_REQUEST['propertyvalidationnumber'], $_REQUEST['accountname'], $_REQUEST['accountnumber'], $_REQUEST['bankname'], $_REQUEST['nin'], $_REQUEST['admin_id'], $_REQUEST['keylogin']) ;
-    if($insert != "cool"){
-        echo $insert;
-    }else{
-        header("Location: tendashboard.php");
-    }
-    }
-}
+//         //end validate
+//         $landlord = new Landlord();
+//     $insert = $landlord->register($_REQUEST['lastname'], $_REQUEST['firstname'], $_REQUEST['address'], $_REQUEST['email'], $_REQUEST['phone'], $_REQUEST['password'], $_REQUEST['propertyvalidationnumber'], $_REQUEST['accountname'], $_REQUEST['accountnumber'], $_REQUEST['bankname'], $_REQUEST['nin'], $_REQUEST['admin_id'], $_REQUEST['keylogin']);
+//     if($insert != "cool"){
+//         echo $insert;
+//     }else{        
+//         $_SESSION['lastname'] = $_REQUEST['tenlastname'];
+//         $_SESSION['firstname'] = $_REQUEST['tenfirstname'];
+//         $_SESSION['email'] = $_REQUEST['tenemail'];
+//         $_SESSION['id'] = $id;
+//         $_SESSION['logger'] = "K!NG_DAViD";
+//         header("Location: tendashboard.php");
+//     }
+//     }
+// }
     //tenant form
-    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["tenbtnregister"])){
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["tenbtnregister"]) && $_SESSION['logger'] = "K!NG_DAViD"){
         //validate
         
     $errors = array();
@@ -103,13 +110,16 @@
         if($insert != "cool"){
             echo $insert;
         }else{
-            header("Location: landashboard.php");
+        $_SESSION['lastname'] = $_REQUEST['tenlastname'];
+        $_SESSION['firstname'] = $_REQUEST['tenfirstname'];
+        $_SESSION['email'] = $_REQUEST['tenemail'];
+        
+        $_SESSION['logger'] = "K!NG_DAViD";
+        header("Location: tendashboard.php");
+        exit();
         }
         }
 }
-    ?>
-    <?php
-    include_once "header.php";
     ?>
 <style>
     .choice{
@@ -151,7 +161,7 @@
         </div>
         <div class="registerstyle2">
          
-            <form action="register.php" method="POST" id="registerform2" class="form-control">
+            <form action="" method="POST" id="registerform2" class="form-control">
                 <div class="formwrap">
                     <div class="formwrapchild">
                         <label class="form-label" for="tenfirstname">First Name: </label>

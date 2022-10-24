@@ -36,6 +36,7 @@
             $dbstatement->bind_param("sssssss", $lastname, $firstname, $address, $email, $phone, $password, $nin);
             //execute
             $dbstatement->execute();
+            $id = $dbstatement->insert_id;
 
             //error management
 
@@ -43,6 +44,7 @@
                 $result = "Oops! Something went wrong. ".$dbstatement->error;
             }else{
                 $result = "cool";
+                $_SESSION['id'] = $id;
             }
             return $result;
         }
