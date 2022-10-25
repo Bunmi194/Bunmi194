@@ -10,7 +10,8 @@ $landmsg = new Landlord();
    $res = $landmsg->getLandlordId($id);
    $landlord_id = $res[0]['landlords_id'];
    //echo $landlord_id;
-   if(($_SESSION['logger'] != "K!NG_DAViD") && !isset(($_SESSION['lastname']))){
+   if(!isset($_SESSION['logger']) && !isset(($_SESSION['lastname']))){
+    $_SESSION['break'] = "You need to log in to access the page";
     header("Location: signin.php");
     exit();
     }

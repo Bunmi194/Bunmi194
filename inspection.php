@@ -1,7 +1,6 @@
 <?php   
         include_once "portalheader.php";
         session_start();
-        include_once "header.php";
 ?>
 <style>
     .forms{
@@ -33,6 +32,11 @@
         }
     ?>
     <h2>My Inspections</h2>
+    <?php
+        if ($resultset[0] == "NO RECORD") {
+            echo "<div class='alert alert-danger'>NO RECORD FOUND</div>";
+        }else{
+    ?>
     <table class="table">
         <thead>
             <th>S/N</th>
@@ -57,6 +61,7 @@
                 
         <?php
             }
+        }
         ?>
         </tbody>
     </table>

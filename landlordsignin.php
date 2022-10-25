@@ -20,7 +20,7 @@
 
         $output = $obj->login($_REQUEST['email'], $_REQUEST['password']);
         if($output == false){
-            $errors['signin'] = "Invalid username of password!";
+            $errors['signin'] = "Invalid username or password!";
         }else{
             //redirect the user to dashboard
             header("Location: landashboard.php");
@@ -30,33 +30,33 @@
 }
     //login for tenants
     
-    if(isset($_REQUEST['tenbtnsubmit'])){
-        # validate login form
-        $errors = array();
-        if(empty($_REQUEST['tenemail'])){
-            $errors['tenemail'] = "Email field is required";
-        }
-        if(empty($_REQUEST['tenpassword'])){
-            $errors['tenpassword'] = "Password field is required";
-        }
-        //check if there is no validation error
-        if(empty($errors)){
-            //add object of student class
-            include_once "shared/tenant.php";
-        //create object of student class
-        $obj = new Tenant();
-        // reference login method
+//     if(isset($_REQUEST['tenbtnsubmit'])){
+//         # validate login form
+//         $errors = array();
+//         if(empty($_REQUEST['tenemail'])){
+//             $errors['tenemail'] = "Email field is required";
+//         }
+//         if(empty($_REQUEST['tenpassword'])){
+//             $errors['tenpassword'] = "Password field is required";
+//         }
+//         //check if there is no validation error
+//         if(empty($errors)){
+//             //add object of student class
+//             include_once "shared/tenant.php";
+//         //create object of student class
+//         $obj = new Tenant();
+//         // reference login method
 
-        $output = $obj->login($_REQUEST['tenemail'], $_REQUEST['tenpassword']);
-        if($output == false){
-            $errors['tensignup'] = "Invalid username of password!";
-        }else{
-            //redirect the user to dashboard
-            header("Location: tendashboard.php");
-            exit();
-        }
-    }
-}
+//         $output = $obj->login($_REQUEST['tenemail'], $_REQUEST['tenpassword']);
+//         if($output == false){
+//             $errors['tensignup'] = "Invalid username of password!";
+//         }else{
+//             //redirect the user to dashboard
+//             header("Location: tendashboard.php");
+//             exit();
+//         }
+//     }
+// }
 include_once "header.php";
 ?>
 
@@ -69,6 +69,8 @@ include_once "header.php";
     }
     .form{
         width: 85% !important;
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
     }
     .signindirection{
         width: 100%;
@@ -88,6 +90,13 @@ include_once "header.php";
         margin: -30px 0px;
         padding: -30px 0px;
     }
+    .error{
+        padding-left: 30px !important;
+        padding-top: -80px !important;
+        padding-bottom: -80px !important;
+        color: red !important;
+        font-size: 14px;
+    }
 </style>
 <div class="container-fluid">
     <div class="signin">
@@ -103,30 +112,28 @@ include_once "header.php";
                         <form action="" method="POST" class="form-control" id="form1">
                         <span class="span"><?php 
                             if(isset($errors["signin"])){
-                                echo $errors["signin"];
+                                echo "<p class='error'>".$errors["signin"]."</p>";
                             }else{
-                                echo " ";
+                                echo "<p></p>";
                             }
                         ?></span>
                         <input type="text" name="email" id="email" placeholder="Enter your email address (for landlords)..." class="form">
                         <span class="span"><?php 
                             if(isset($errors["email"])){
-                                echo $errors["email"];
+                                echo "<p class='error'>".$errors["email"]."</p>";
                             }else{
-                                echo " ";
+                                echo "<p></p>";
                             }
                         ?></span><br>
                         <input type="password" name="password" id="password" placeholder="Enter your password..." class="form"><span class="span"><?php 
                             if(isset($errors["password"])){
-                                echo $errors["password"];
+                                echo "<p class='error'>".$errors["password"]."</p>";
                             }else{
-                                echo " ";
+                                echo "<p></p>";
                             }
                         ?></span><br>
                         <button class="form" type="submit" name="btnsubmit" id="login">Log In</button>
                         
-                    <div class="signindirection">
-                    </div>
                     
                     </form>
                 </section>

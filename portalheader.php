@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (!isset($_SESSION['logger']) || ($_SESSION['logger'] != "K!NG_DAViD")) {
-        $_SESSION['break'] = "You need to log in to access the page.";
+        $_SESSION['break'] = "You need to log in to access the page";
         header("Location: signin.php");
         exit();
     }
@@ -296,9 +296,23 @@
                     <ul>
                         <li><a href="#">Solutions</a></li>
                         <li><a href="more.php">Properties</a></li>
-                        <li><b>Welcome <?php if(isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?></b></li>
+                        <?php
+                            if (isset($_SESSION['landlord'])) {
+                        ?>
+                        <a href="landashboard.php">
+                            <li><b>Welcome <?php if(isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?></b></li>
+                        </a>
+                        <?php
+                            }else{
+                        ?>
+                            <a href="tendashboard.php">
+                            <li><b>Welcome <?php if(isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?></b></li>
+                        </a>
+                        <?php
+                            }
+                        ?>
                         <button type="button" id="button"><a href="logout.php" id="button2" name="btnphsignout">Lock</a></button>
                     </ul>
                 </div>
             </nav>
-
+            

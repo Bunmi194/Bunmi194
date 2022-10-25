@@ -31,6 +31,11 @@
             echo $output;
         }
     ?>
+    <?php
+        if ($resultset[0] == "NO RECORD") {
+            echo "<div class='alert alert-danger'>NO RECORD FOUND</div>";
+        }else{
+    ?>
     <h2>My Messages</h2>
     <table class="table">
         <thead>
@@ -79,6 +84,7 @@
             </tr>
         <?php
             }
+        }
         ?>
         </tbody>
     </table>

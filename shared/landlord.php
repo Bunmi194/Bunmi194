@@ -39,7 +39,7 @@
             //prepare
             $dbstatement = $this->dbaccess->prepare("INSERT INTO landlords (landlord_lastname, landlord_firstname, landlord_address, landlord_email, landlord_phone, password, property_validity_number, account_name, account_number, bank_name, landlord_nin, admin_id, keylogin) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
             //bind
-            $dbstatement->bind_param("sssssssssssss", $lastname, $firstname, $address, $email, $phone, $password, $propnumber, $account_name, $account_number, $bank_name, $nin, $admin_id, $keylogin);
+            $dbstatement->bind_param("sssssssssssis", $lastname, $firstname, $address, $email, $phone, $password, $propnumber, $account_name, $account_number, $bank_name, $nin, $admin_id, $keylogin);
             //execute
             $dbstatement->execute();
             $id = $dbstatement->insert_id;
@@ -52,6 +52,7 @@
                 $result = "cool";
                 session_start();
                 $_SESSION['id'] = $id;
+                $_SESSION['landlord'] = "landlord";
             }
             return $result;
         }
@@ -401,6 +402,7 @@
                     $_SESSION['firstname'] = $row['landlord_firstname'];
                     $_SESSION['email'] = $row['landlord_email'];
                     $_SESSION['id'] = $row['landlord_id'];
+                    $_SESSION['landlord'] = "landlord";
                     $_SESSION['logger'] = "K!NG_DAViD";
                     return true;
                 }else{
