@@ -1,18 +1,41 @@
 <?php    
     session_start();
+    include_once "shared/constants.php";
+    include_once "shared/landlord.php";
     if (isset($_SESSION['lastname'])) {
         include_once "styleheader.php";
     }else{
         include_once "header.php";
     }  
-    include_once "shared/constants.php";
 
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["btnregister"])){
         //validate
         
+        
+        //email   
+        $check = new Landlord();
+        $checkEmail = $check->lookForEmail($_REQUEST['email']);
+        //phone
+        $checkPhone = $check->lookForPhone($_REQUEST['phone']);
+        //nin
+        $checkNin = $check->lookForNin($_REQUEST['nin']);
+
+
     $errors = array();
         // validate
         $errors = array(); //empty array
+        if($checkEmail == "yes"){
+            $errors['checkEmail'] = "Email already exists!";
+        }
+        if($checkPhone == "yes"){
+            $errors['checkPhone'] = "Phone number already exists!";
+        }
+        if($checkNin == "yes"){
+            $errors['checkNin'] = "Nin already exists!";
+        }
+        
+        
+
         if(empty($_REQUEST['firstname'])){
             $errors['errfirstname'] = "Firstname field is required!";
         }
@@ -34,9 +57,19 @@
         if(empty($_REQUEST['admin_id'])){
             $errors['erradmin_id'] = "Admin ID field is required!";
         }
+
+        if(!empty($_REQUEST['admin_id']) && ($_REQUEST['admin_id'] != 1)){
+            $errors['erradmin_id'] = "Incorrect Admin ID! Please contact your administrator";
+        }
+
         if(empty($_REQUEST['keylogin'])){
             $errors['errkeylogin'] = "Key field is required!";
         }
+
+        if(!empty($_REQUEST['keylogin']) && ($_REQUEST['keylogin'] != "JKL194LA")){
+            $errors['errkeylogin'] = "Key does not exist! Please contact your administrator";
+        }
+
         if(empty($_REQUEST['propertyvalidationnumber'])){
             $errors['errpropertyvalidationnumber'] = "Property Validation Number field is required!";
         }
@@ -188,11 +221,13 @@
                         <label for="email" class="form-label">Email: </label>
                         <input class="form-control" type="email" name="email" id="email" value="<?php if(isset($_REQUEST['email'])) echo $_REQUEST['email']?>">
                         <?php if(isset($errors['erremail'])) echo "<p class='error'>".$errors['erremail']."</p>"?>
+                        <?php if(isset($errors['checkEmail'])) echo "<p class='error'>".$errors['checkEmail']."</p>"?>
                     </div>
                     <div class="formwrapchild">
                         <label for="lastname" class="form-label">Phone Number: </label>
                         <input class="form-control" type="text" name="phone" id="phone" value="<?php if(isset($_REQUEST['phone'])) echo $_REQUEST['phone']?>">
                         <?php if(isset($errors['errphone'])) echo "<p class='error'>".$errors['errphone']."</p>"?>
+                        <?php if(isset($errors['checkPhone'])) echo "<p class='error'>".$errors['checkPhone']."</p>"?>
                     </div>
                 </div>
                 <div class="formwrap">
@@ -214,6 +249,7 @@
                         <label for="nin" class="form-label">National Identification Number: </label>
                         <input class="form-control" type="text" name="nin" id="nin" value="<?php if(isset($_REQUEST['nin'])) echo $_REQUEST['nin']?>">
                         <?php if(isset($errors['errnin'])) echo "<p class='error'>".$errors['errnin']."</p>"?>
+                        <?php if(isset($errors['checkNin'])) echo "<p class='error'>".$errors['checkNin']."</p>"?>
                     </div>
                 </div>
                 <div class="formwrap">

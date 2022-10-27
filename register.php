@@ -1,5 +1,6 @@
 <?php
 include_once "shared/constants.php";
+include_once "shared/tenant.php";
 ?>
 <?php    
     session_start();
@@ -72,10 +73,27 @@ include_once "shared/constants.php";
     //tenant form
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_REQUEST["tenbtnregister"]) && $_SESSION['logger'] = "K!NG_DAViD"){
         //validate
-        
+     //email   
+    $check = new Tenant();
+    $checkEmail = $check->lookForEmail($_REQUEST['tenemail']);
+    //phone
+    $checkPhone = $check->lookForPhone($_REQUEST['tenphone']);
+    //nin
+    $checkNin = $check->lookForNin($_REQUEST['tennin']);
+
     $errors = array();
     // validate
     $errors = array(); //empty array
+    if($checkEmail == "yes"){
+        $errors['checkEmail'] = "Email already exists!";
+    }
+    if($checkPhone == "yes"){
+        $errors['checkPhone'] = "Phone number already exists!";
+    }
+    if($checkNin == "yes"){
+        $errors['checkNin'] = "Nin already exists!";
+    }
+
     if(empty($_REQUEST['tenfirstname'])){
         $errors['errtenfirstname'] = "Firstname field is required!";
     }
@@ -198,11 +216,15 @@ include_once "shared/constants.php";
                         <label class="form-label" for="tenemail">Email: </label>
                         <input class="form-control" type="email" name="tenemail" id="tenemail" value="<?php if(isset($_REQUEST['tenemail'])) echo $_REQUEST['tenemail']?>">
                         <?php if(isset($errors['errtenemail'])) echo "<p class='error'>".$errors['errtenemail']."</p>"?>
+                        <?php if(isset($errors['checkEmail'])) echo "<p class='error'>".$errors['checkEmail']."</p>"?>
+
+                        
                     </div>
                     <div class="formwrapchild">
                         <label class="form-label" for="tenphone">Phone Number: </label>
                         <input class="form-control" type="text" name="tenphone" id="tenphone" value="<?php if(isset($_REQUEST['tenphone'])) echo $_REQUEST['tenphone']?>">
                         <?php if(isset($errors['errtenphone'])) echo "<p class='error'>".$errors['errtenphone']."</p>"?>
+                        <?php if(isset($errors['checkPhone'])) echo "<p class='error'>".$errors['checkPhone']."</p>"?>
                     </div>
                 </div>
                 <div class="formwrap">
@@ -215,6 +237,7 @@ include_once "shared/constants.php";
                         <label class="form-label" for="tenaddress">National Identification Number: </label>
                         <input class="form-control" type="text" name="tennin" id="tenaddress" value="<?php if(isset($_REQUEST['tennin'])) echo $_REQUEST['tennin']?>">
                         <?php if(isset($errors['errnin'])) echo "<p class='error'>".$errors['errnin']."</p>"?>
+                        <?php if(isset($errors['checkNin'])) echo "<p class='error'>".$errors['checkNin']."</p>"?>
                     </div>
                 </div>
                 <div class="formwrap">

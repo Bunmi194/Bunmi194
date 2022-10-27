@@ -258,6 +258,61 @@
         
         //insert into messages_apartments
 
+        //check if email exists
+
+        function lookForEmail($email){
+            $statement = $this->dbaccess->prepare("SELECT * FROM tenants WHERE email=?");
+            $statement->bind_param("s", $email);
+            $statement->execute();
+            $result = $statement->get_result();
+            //$record = $result->fetch_assoc();
+            if ($result->num_rows > 0) {
+                //record already exists
+                return "yes";
+            }else{
+                return "no";
+            }
+        }
+
+        //check if email exists
+        
+        //check if phone exists
+
+        function lookForPhone($phone){
+            $statement = $this->dbaccess->prepare("SELECT * FROM tenants WHERE phone=?");
+            $statement->bind_param("s", $phone);
+            $statement->execute();
+            $result = $statement->get_result();
+            //$record = $result->fetch_assoc();
+            if ($result->num_rows > 0) {
+                //record already exists
+                return "yes";
+            }else{
+                return "no";
+            }
+        }
+
+        //check if phone exists
+
+        
+        //check if nin exists
+
+        function lookForNin($nin){
+            $statement = $this->dbaccess->prepare("SELECT * FROM tenants WHERE nin=?");
+            $statement->bind_param("s", $nin);
+            $statement->execute();
+            $result = $statement->get_result();
+            //$record = $result->fetch_assoc();
+            if ($result->num_rows > 0) {
+                //record already exists
+                return "yes";
+            }else{
+                return "no";
+            }
+        }
+
+        //check if nin exists
+
     }
 
 

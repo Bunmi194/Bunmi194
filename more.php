@@ -63,9 +63,9 @@ session_start();
     print_r($_SESSION);
     echo "</pre>";
 
-    // echo "<pre>";
-    // print_r($result);
-    // echo "</pre>";
+    echo "<pre>";
+    print_r($result);
+    echo "</pre>";
     // foreach ($result as $key => $value) {
     //     $row = $value
     // }
@@ -94,6 +94,24 @@ session_start();
                     echo "</div>";
                     unset($_SESSION['counter']);
                 }
+
+                if(isset($_SESSION['paid'])){
+                    echo "<div class='alert alert-info' style='text-align:center; font-weight: bold'>";
+                    echo $_SESSION['paid'];
+                    echo "</div>";
+                    unset($_SESSION['paid']);
+                }
+
+                if(isset($_SESSION['paidrent'])){
+                    echo "<div class='alert alert-info' style='text-align:center; font-weight: bold'>";
+                    echo $_SESSION['paidrent'];
+                    echo "</div>";
+                    unset($_SESSION['paidrent']);
+                }
+
+                
+
+                
             ?>
         
     </div>

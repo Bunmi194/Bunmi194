@@ -6,6 +6,10 @@
     .buttonstyle{
         margin-right: 30px;
     }
+    .red{
+        color: red;
+        font-size: 14px;
+    }
 </style>
 <?php
     echo "<pre>";
@@ -16,6 +20,19 @@
     <div class="row">
         <div class="col form-control" id="divform">
             <h2>Choose a date and time slot</h2>
+            
+                <?php
+                    if (isset($error['field'])) {
+                        echo "<p class='red'>".$error['field']."</p>";
+                    }
+
+                    if (isset($error['dateinterval'])) {
+                        echo "<p class='red'>".$error['dateinterval']."</p>";
+                    }
+
+                    
+                ?>
+            
             <form action="processinspection.php?id=<?php echo $_REQUEST['id']?>" method="POST" class="form-control mt-5 mb-5 pt-5">
                 <div>
                     <label for="date" class="form-label">Select a date</label>

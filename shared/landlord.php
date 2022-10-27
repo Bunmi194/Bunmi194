@@ -510,6 +510,33 @@
             }
         //getallmessages
 
+        /*
+            ------------------Admin
+        */
+
+        
+        //getallmessages
+
+        function getAllMessagesAdmin(){
+            $stmt = $this->dbaccess->prepare("SELECT * FROM messages_apartment JOIN apartments ON messages_apartment.apartment_id = apartments.apartments_id LEFT JOIN landlords ON apartments.landlords_id = landlords.landlord_id LEFT JOIN inspection ON inspection.apartments_id = apartments.apartments_id GROUP BY message_id");
+            $stmt->execute();
+
+            $resultset = $stmt->get_result();
+            $record = array();
+            if($resultset->num_rows > 0){
+                while ($row = $resultset->fetch_assoc()) {
+                    $record[] = $row;
+                }
+            }else{
+                $record[] = "NO RECORD";
+            }
+            return $record;
+        }
+    //getallmessages
+
+    /*
+        -------------------Admin
+    */
 
         //getallinspection
 
@@ -533,6 +560,38 @@
 
         //getallinspection
 
+        /*
+        ------------------------Admin
+
+        */
+
+        
+        //getallinspection
+
+        function getAllInspectionsAdmin(){
+            $message = "booked";
+            $stmt = $this->dbaccess->prepare("SELECT * FROM messages_apartment JOIN apartments ON messages_apartment.apartment_id = apartments.apartments_id LEFT JOIN landlords ON apartments.landlords_id = landlords.landlord_id LEFT JOIN inspection ON inspection.apartments_id = apartments.apartments_id WHERE inspection.status = ? GROUP BY apartment_id ORDER BY inspection.inspection_date DESC");
+            $stmt->bind_param("s", $message);
+            $stmt->execute();
+
+            $resultset = $stmt->get_result();
+            $record = array();
+            if($resultset->num_rows > 0){
+                while ($row = $resultset->fetch_assoc()) {
+                    $record[] = $row;
+                }
+            }else{
+                $record[] = "NO RECORD";
+            }
+            return $record;
+        }
+
+        //getallinspection
+
+        /*
+        -------------------------------Admin
+        */
+
         //getallproperties
 
         function getAllProperties($landlords_id){
@@ -553,6 +612,32 @@
         }
 
         //getallproperties
+
+        //admin-------
+        
+
+        
+        //getallproperties
+
+        function getAllPropertiesAdmin(){
+            $stmt = $this->dbaccess->prepare("SELECT * FROM apartments JOIN apartment_location ON apartments.location_id = apartment_location.location_id ORDER BY apartments.date DESC");
+            $stmt->execute();
+
+            $resultset = $stmt->get_result();
+            $record = array();
+            if($resultset->num_rows > 0){
+                while ($row = $resultset->fetch_assoc()) {
+                    $record[] = $row;
+                }
+            }else{
+                $record[] = "NO RECORD";
+            }
+            return $record;
+        }
+
+        //getallproperties
+
+        //admin----------
 
         //get properties by id
 
@@ -697,6 +782,70 @@
             $num = $record->fetch_assoc();
             return $num;
         }
+
+
+        //check for unique fields
+        /* 
+        ----------------------------
+        ------------------------
+        --------------------
+        ---------------
+        */
+        
+        //check if email exists
+
+        function lookForEmail($email){
+            $statement = $this->dbaccess->prepare("SELECT * FROM landlords WHERE landlord_email=?");
+            $statement->bind_param("s", $email);
+            $statement->execute();
+            $result = $statement->get_result();
+            //$record = $result->fetch_assoc();
+            if ($result->num_rows > 0) {
+                //record already exists
+                return "yes";
+            }else{
+                return "no";
+            }
+        }
+
+        //check if email exists
+        
+        //check if phone exists
+
+        function lookForPhone($phone){
+            $statement = $this->dbaccess->prepare("SELECT * FROM landlords WHERE landlord_phone=?");
+            $statement->bind_param("s", $phone);
+            $statement->execute();
+            $result = $statement->get_result();
+            //$record = $result->fetch_assoc();
+            if ($result->num_rows > 0) {
+                //record already exists
+                return "yes";
+            }else{
+                return "no";
+            }
+        }
+
+        //check if phone exists
+
+        
+        //check if nin exists
+
+        function lookForNin($nin){
+            $statement = $this->dbaccess->prepare("SELECT * FROM landlords WHERE landlord_nin=?");
+            $statement->bind_param("s", $nin);
+            $statement->execute();
+            $result = $statement->get_result();
+            //$record = $result->fetch_assoc();
+            if ($result->num_rows > 0) {
+                //record already exists
+                return "yes";
+            }else{
+                return "no";
+            }
+        }
+
+        //check if nin exists
     }
 
 

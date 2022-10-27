@@ -1,12 +1,5 @@
-<?php
-    session_start();
-    ob_start();
-    if (!isset($_SESSION['logger']) || ($_SESSION['logger'] != "K!NG_DAViD")) {
-        $_SESSION['break'] = "You need to log in to access the page";
-        header("Location: signin.php");
-        exit();
-    }
-
+<?php  
+ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,11 +10,12 @@
     <link rel="stylesheet" href="shared/index.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">
     <title>Homify</title>
-    <style>        
+    <style> 
+               
         ul li{
             display: inline-block;
             list-style-type: none;
-            margin: 0px 0px 0px 4%;
+            margin: 0px 0px 0px 7%;
         }
             div{
         min-height: 10%;
@@ -295,31 +289,11 @@
                 </div>
                 <div id="about">
                     <ul>
+                        <li><a href="#">About</a></li>
                         <li><a href="#">Solutions</a></li>
                         <li><a href="more.php">Properties</a></li>
-                        <?php
-                            if (isset($_SESSION['landlord'])) {
-                        ?>
-                        <a href="landashboard.php">
-                            <li><b>Welcome <?php if(isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?></b></li>
-                        </a>
-                        <?php
-                            }elseif(isset($_SESSION['role'])){
-                        ?>
-                            <a href="admindashboard.php">
-                            <li><b>Welcome <?php if(isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?></b></li>
-                        </a>
-                        <?php
-                            }else{
-                        ?>
-                        <a href="tendashboard.php">
-                            <li><b>Welcome <?php if(isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?></b></li>
-                        </a>
-                        <?php
-                            }
-                        ?>
-                        <button type="button" id="button"><a href="logout.php" id="button2" name="btnphsignout">Lock</a></button>
+                        <li><a href="signin.php">Sign In</a></li>
+                        <button type="button" id="button"><a href="register.php" id="button2">Register</a></button>
                     </ul>
                 </div>
             </nav>
-            

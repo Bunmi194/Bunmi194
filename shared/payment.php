@@ -6,12 +6,14 @@
         public $tenantid;
         public $apartmentid;
         public $reference;
+        public $key;
         public $dbcon;
 
         //member functions
 
         public function __construct(){
             $this->dbcon = new MySQLi(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DB_NAME);
+            $this->key = "sk_test_1c6935580e77aee5f31ad70219030a3ea7dd09ab";
 
             if($this->dbcon->connect_error){
                 die("Error ".$this->dbcon->connect_error);
@@ -78,6 +80,69 @@
 
             $result = json_decode($response);
             return $result;
+        }
+
+        public function verifyPayment($reference){
+            $url = "https://api.paystack.co/transaction/verify/".$reference;
+            //initialize curl
+            $ch = curl_init();
+            //set call options
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);//return string instead of printing it out
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //do not verify SSL certificate
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Authorization: Bearer ".$this->key,
+            "Cache-Control: no cache"
+        ));
+        //execute
+        $result = curl_exec($ch);
+            if (curl_error($ch)) {
+                die("CURL Error: ".curl_error($ch));
+            }
+        //close
+        curl_close($ch);
+        return json_decode($result);
+        }
+
+        public function updateTransaction($date, $reference){
+            $status = "completed";
+            $statement = $this->dbcon->prepare("UPDATE payments_apartments SET status=?, updated=? WHERE reference=?");
+            $statement->bind_param("sss", $status, $date, $reference);
+            $statement->execute();
+
+            if ($statement->affected_rows > 0) {
+                return "success";
+            }else{
+                return "failed";
+            }
+        }
+
+        //update apartment status after payment
+        public function selectApartmentId($reference){
+            $statement = $this->dbcon->prepare("SELECT * FROM payments_apartments JOIN apartments ON payments_apartments.apartments_id = apartments.apartments_id WHERE payments_apartments.reference=?");
+            $statement->bind_param("s", $reference);
+            $statement->execute();
+            $result = $statement->get_result();
+
+            if ($result->num_rows > 0) {
+                return $result->fetch_assoc();
+            }else{
+                return "failed";
+            }
+        }
+
+        public function updateApartmentStatus($apartmentid){
+            $status = "Paid";
+            $statement = $this->dbcon->prepare("UPDATE apartments SET status=? WHERE apartments_id=?");
+            $statement->bind_param("ss", $status, $apartmentid);
+            $statement->execute();
+
+            if ($statement->affected_rows > 0) {
+                return "success";
+            }else{
+                return "failed";
+            }
         }
     }
 ?>

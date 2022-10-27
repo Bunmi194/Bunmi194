@@ -28,9 +28,20 @@ echo "</pre>";
         //accepted
         //go to date time page and book
         $error = array();
+        
+        $date = date_create($_REQUEST['date']);
+        $now = date_create(date('Y-m-d'));
+        // echo "<pre>";
+        // print_r(date_diff($now, $date));
+        // echo "</pre>";
+        $interval = date_diff($now, $date)->invert;
         if(empty($_REQUEST['date']) || empty($_REQUEST['time'])){
             //please fill all fields
-            $error[] = "Please choose a date and time";
+            $error['field'] = "Please choose a date and time";
+            include_once "inspectionbooking.php";
+            exit();
+        }elseif($interval != 0){
+            $error['dateinterval'] = "Please choose a valid date";
             include_once "inspectionbooking.php";
             exit();
         }else{

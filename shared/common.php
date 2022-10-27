@@ -195,5 +195,46 @@
     }
 
     //logout
+
+    function checkStatus($apartmentid){
+        $statement = $this->dbcon->prepare("SELECT * FROM apartments WHERE apartments_id=?");
+        $statement->bind_param("i", $apartmentid);
+        $statement->execute();
+        $result = $statement->get_result();
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }else{
+            return "NO RECORD";
+        }
     }
+
+    //search apartment
+
+    
+    function searchApartment($search){
+        //prepare the statement
+        $stmt = $this->dbcon->prepare("SELECT * FROM images_apartments JOIN apartments ON images_apartments.apartments_id=apartments.apartments_id LEFT JOIN apartment_category ON apartments.category_id=apartment_category.category_id LEFT JOIN apartment_location ON apartment_location.location_id=apartments.location_id WHERE apartments.title LIKE ? OR apartments.address LIKE ? OR apartments.description LIKE ? OR apartment_category.category LIKE ? OR apartment_location.location LIKE ? GROUP BY apartments.apartments_id LIMIT 10");
+        //bind
+        $searchstr = "%$search%";
+        $stmt->bind_param("sssss",$searchstr, $searchstr, $searchstr, $searchstr, $searchstr);
+        //execute
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $data = array();
+        if($result->num_rows > 0){
+            while ($row = $result->fetch_assoc()){
+                $data[] = $row;
+            }
+
+        }else{
+            $data = "NO RECORD";
+        }
+
+        return $data;
+    }
+    //end searchstudent method
+
+    }
+    
 ?>

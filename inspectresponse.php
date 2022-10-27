@@ -25,9 +25,15 @@ $landmsg = new Landlord();
         $check = new Common();
         $checkCount = $check->checkForInspection($_SESSION['id'], $id);
         $counter = $checkCount['COUNT(inspection_id)'];
+        $obj = new Common();
+        $check = $obj->checkStatus($id);
         
         if ($counter > 0) {
             $_SESSION['counter'] = "You have previously made a request to inspect this property!";
+            header("Location: more.php?apartmentid=$id");
+            exit();
+        }elseif ($check['status'] == "Paid") {
+            $_SESSION['paid'] = "This property is not available for inspection! Please check for other properties.";
             header("Location: more.php?apartmentid=$id");
             exit();
         }else{

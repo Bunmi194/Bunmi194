@@ -8,9 +8,37 @@
 </head>
 <body>
     <?php
+        include_once "shared/constants.php";
+        include_once "shared/common.php";
+        $obj = new Common();
+        $check = $obj->checkStatus(1);
+        
         echo "<pre>";
-        print_r($_REQUEST);
+        print_r($check);
         echo "</pre>";
+        echo $check['status'];
+        exit;
+        $date1 = date_create("2022-10-26");
+        $date2 = date_create(date('Y-m-d'));
+        echo "<pre>";
+        print_r(date_diff($date2, $date1));
+        echo "</pre>";
+        echo date_diff($date2, $date1)->invert;
+        exit();
+        //echo password_hash("12345678JKL194LA$$",PASSWORD_DEFAULT);
+        
+        // echo "<pre>";
+        // print_r($_REQUEST);
+        // echo "</pre>";
+        include_once "shared/constants.php";
+        include_once "shared/tenant.php";
+        $mene = new Tenant();
+        $sk = $mene->lookForEmail('fjkrt@gmail.com');
+
+        echo "<pre>";
+        print_r($sk);
+        echo "</pre>";
+
     ?>
     <form action="">
     <input type="date" name="date" id="date">

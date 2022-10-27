@@ -13,7 +13,7 @@
         include_once "shared/constants.php";
         include_once "shared/landlord.php";
         $landmessage = new Landlord();
-        $resultset = $landmessage->getAllProperties($_SESSION['id']);
+        $resultset = $landmessage->getAllPropertiesAdmin();
         
         echo "<pre>";
         print_r($_SESSION);
@@ -72,11 +72,33 @@
                 <td><?php echo date('jS M Y', strtotime($value['date'])) ?></td>
                 <td>
                     <form action="editproperty.php?apartmentid=<?php echo $value['apartments_id'] ?>" method="POST">
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                    <?php
+                        if (isset($_SESSION['role'])) {
+                    ?>
+                    
+                    <button type="submit" class="btn btn-primary" disabled>Edit</button>
+                    <?php
+                        }else{
+                    ?>
+                    
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <?php
+                        }
+                    ?>
                         <input type="hidden" name="apt" value="<?php echo $value['apartments_id'] ?>">
                     </form>
                     <form action="deleteproperty.php?apartmentid=<?php echo $value['apartments_id'] ?>" method="POST" onsubmit="deleteCheck(event)">
+                        <?php
+                            if (isset($_SESSION['role'])) {
+                        ?>
+                        <button type="submit" class="btn btn-danger" name="btndelete" id="btndel" disabled>Delete</button>
+                        <?php
+                            }else{
+                        ?>
                         <button type="submit" class="btn btn-danger" name="btndelete" id="btndel">Delete</button>
+                        <?php
+                            }
+                        ?>
                         <input type="hidden" name="apt" value="<?php echo $value['apartments_id'] ?>">
                     </form>
                 </td>

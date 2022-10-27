@@ -13,7 +13,7 @@
         include_once "shared/constants.php";
         include_once "shared/landlord.php";
         $landmessage = new Landlord();
-        $resultset = $landmessage->getAllInspections($_SESSION['id']);
+        $resultset = $landmessage->getAllInspectionsAdmin();
         
         // echo "<pre>";
         // print_r($_SESSION);

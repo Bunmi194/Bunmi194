@@ -10,7 +10,16 @@
         echo "</pre>";
         
     if(isset($_REQUEST['btnpay']) && $_SESSION['logger'] = "K!NG_DAViD" && isset($_SESSION['id'])){
-        
+        include_once "shared/constants.php";
+        include_once "shared/common.php";
+        $obj = new Common();
+        $check = $obj->checkStatus($_REQUEST['apartmentid']);
+
+        if ($check['status'] == "Paid") {
+            $_SESSION['paidrent'] = "This property is not available to rent! Please check for other properties.";
+            header("Location: more.php?apartmentid=".$_REQUEST['apartmentid']);
+            exit();
+        }else{
         echo "<pre>";
         print_r($_REQUEST);
         echo "</pre>";
@@ -45,10 +54,12 @@
         }else{
             echo "Oops! something happened!";
         }
+    }
+    
     }else{
         header("Location: signin.php");
         exit();
     }
 
-?>
 
+?>
