@@ -1,5 +1,10 @@
 <?php
 session_start();
+    if(!isset($_SESSION['landlord'])){
+        $_SESSION['break'] = "You need to log in as a landlord to access the page";
+        header("Location: signin.php");
+        exit();
+    }
     include_once "portalheader.php";
     include_once "shared/constants.php";
     include_once "shared/landlord.php";
@@ -24,9 +29,9 @@ session_start();
     // echo "<pre>";
     // print_r($_REQUEST);
     // echo "</pre>";
-    echo "<pre>";
-    print_r($amount[0]);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($amount[0]);
+    // echo "</pre>";
 
     
 ?>
@@ -83,6 +88,35 @@ session_start();
         .username h3{
             padding-top: 20px;
         }
+        /*media queries*/
+        
+        @media screen and (min-width: 300px) and (max-width: 400px){
+            .innerbig{
+                width: 40px;
+                margin: 0px -100px !important;
+                padding: 0px -100px !important;
+            }
+        }
+        @media screen and (max-width: 1000px){
+            .innerbig{
+                width: 80px;
+                margin: 0px -100px !important;
+                padding: 0px -100px !important;
+            }
+            .small{
+                width: 50%;
+            }
+        }
+        @media screen and (max-width: 1200px){
+            .innerbig{
+                width: 200px;
+                margin: 0px -100px !important;
+                padding: 0px -100px !important;
+            }
+            .small{
+                width: 60%;
+            }
+        }
 </style>
 
     <div>
@@ -91,7 +125,7 @@ session_start();
                 <div class="profilepix">
                     <img src="images/yaba.jpg" alt="profile photo" class="img-fluid">
                 </div>
-                <div class="username">
+                <div class="username small">
                     <h3><?php if(isset($_SESSION['lastname'])){
                         echo $_SESSION['firstname']." ".$_SESSION['lastname'];
                     }?></h3>
@@ -123,12 +157,12 @@ session_start();
             <div class="dashwrapchild" id="dashwrapchild2">
                 <div class="header">
                     <a href="uploadproperty.php" class="btn btn-success">Upload Property</a>
-                    <button type="button" class="btn btn-primary"><a href="myproperties.php">View My Properties</a></button>
-                    <button type="button" class="btn btn-secondary"><a href="inspection.php">Inspections: <?php if(isset($_SESSION['id'])){
+                    <button type="button" class="btn btn-primary"><a href="landlordproperties.php">View My Properties</a></button>
+                    <button type="button" class="btn btn-secondary"><a href="landlordinspection.php">Inspections: <?php if(isset($_SESSION['id'])){
                             echo $landlord_inspect['COUNT(inspection_id)'];
                     }
                         ?></a></button>
-                    <button type="button" class="btn btn-danger"><a href="messages.php">Messages: <?php if(isset($_SESSION['id'])){
+                    <button type="button" class="btn btn-danger"><a href="landlordmessages.php">Messages: <?php if(isset($_SESSION['id'])){
                             echo $landlordmessage['COUNT(inspection_id)'];
                     }
                         ?></a></button>
@@ -172,7 +206,7 @@ session_start();
 ?>
 <!-- 
 <?php
-echo "<pre>";
-print_r($_REQUEST);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_REQUEST);
+// echo "</pre>";
 ?> -->

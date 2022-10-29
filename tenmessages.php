@@ -15,9 +15,9 @@
         $tenmessage = new Tenant();
         $resultset = $tenmessage->getTenantMessage($_SESSION['id']);
         
-        echo "<pre>";
-        print_r($_SESSION);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($_SESSION);
+        // echo "</pre>";
 
         
         // echo "<pre>";
@@ -33,6 +33,11 @@
         }
     ?>
     <h2>My Messages</h2>
+    <?php
+        if ($resultset[0] == "NO RECORD") {
+            echo "<div class='alert alert-danger'>NO RECORD FOUND</div>";
+        }else{
+    ?>
     <table class="table">
         <thead>
             <th>S/N</th>
@@ -61,6 +66,7 @@
             </tr>
         <?php
             }
+        }
         ?>
         </tbody>
     </table>

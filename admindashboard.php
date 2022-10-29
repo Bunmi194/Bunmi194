@@ -4,7 +4,9 @@ session_start();
     include_once "shared/constants.php";
     include_once "shared/landlord.php";
     if (!isset($_SESSION['role'])) {
+        $_SESSION['break'] = "!rotartsinimda";
         header("Location: signin.php");
+        exit();
     }else{
     $landlord_id = $_SESSION['id'];
     $landmsg = new Landlord();
@@ -27,9 +29,9 @@ session_start();
     // echo "<pre>";
     // print_r($_REQUEST);
     // echo "</pre>";
-    echo "<pre>";
-    print_r($amount[0]);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($amount[0]);
+    // echo "</pre>";
 
     
 ?>
@@ -86,6 +88,35 @@ session_start();
         .username h3{
             padding-top: 20px;
         }
+        /*media queries*/
+        
+        @media screen and (min-width: 300px) and (max-width: 400px){
+            .innerbig{
+                width: 40px;
+                margin: 0px -100px !important;
+                padding: 0px -100px !important;
+            }
+        }
+        @media screen and (max-width: 1000px){
+            .innerbig{
+                width: 80px;
+                margin: 0px -100px !important;
+                padding: 0px -100px !important;
+            }
+            .small{
+                width: 50%;
+            }
+        }
+        @media screen and (max-width: 1200px){
+            .innerbig{
+                width: 200px;
+                margin: 0px -100px !important;
+                padding: 0px -100px !important;
+            }
+            .small{
+                width: 60%;
+            }
+        }
 </style>
 
     <div>
@@ -94,7 +125,7 @@ session_start();
                 <div class="profilepix">
                     <img src="images/yaba.jpg" alt="profile photo" class="img-fluid">
                 </div>
-                <div class="username">
+                <div class="username small">
                     <h3><?php if(isset($_SESSION['lastname'])){
                         echo $_SESSION['firstname']." ".$_SESSION['lastname'];
                     }?></h3>
@@ -171,7 +202,7 @@ session_start();
 ?>
 <!-- 
 <?php
-echo "<pre>";
-print_r($_REQUEST);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_REQUEST);
+// echo "</pre>";
 ?> -->

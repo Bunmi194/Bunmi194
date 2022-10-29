@@ -25,9 +25,9 @@
         // print_r($_REQUEST);
         // echo "</pre>";
         
-        echo "<pre>";
-        print_r($resultset);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($resultset);
+        // echo "</pre>";
         
         if(isset($_REQUEST['output'])){
             echo $output;

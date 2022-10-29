@@ -137,7 +137,7 @@
 
         //getapartmentbyid
         function getApartmentById($apartmentid){
-            $statement = $this->dbcon->prepare("SELECT * FROM images_apartments LEFT JOIN apartments ON images_apartments.apartments_id = apartments.apartments_id LEFT JOIN apartment_location ON apartment_location.location_id = apartments.location_id LEFT JOIN apartment_category ON apartment_category.category_id = apartments.category_id WHERE apartments.apartments_id=?");
+            $statement = $this->dbcon->prepare("SELECT * FROM apartments LEFT JOIN images_apartments ON images_apartments.apartments_id = apartments.apartments_id LEFT JOIN apartment_location ON apartment_location.location_id = apartments.location_id LEFT JOIN apartment_category ON apartment_category.category_id = apartments.category_id WHERE apartments.apartments_id=?");
             $statement->bind_param("i", $apartmentid);
             $statement->execute();
             $result = $statement->get_result();

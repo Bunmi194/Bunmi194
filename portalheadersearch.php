@@ -16,8 +16,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="shared/index.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">
-    <title>Homify</title>
-    <style>        
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inspiration&family=Lobster&family=Poppins:ital,wght@1,400;1,600&family=Quicksand&display=swap" rel="stylesheet">
+    <title><?php if (defined("APP_NAME")) {
+        echo APP_NAME;
+    }?></title>
+    <style>  
+        body{
+            font-family: 'Quicksand', sans-serif;
+        }      
         ul li{
             display: inline-block;
             list-style-type: none;
@@ -279,6 +287,136 @@
   .container-fluid{
     margin-top: 50px;
   }
+  /*media queries*/
+  @media screen and (min-width: 200px) and (max-width: 600px){
+    .hide{
+        display: none;
+    }
+    nav{
+        width: 100%;
+    }
+    .block{
+        display: block;
+        align: center;
+        text-align: center;
+    }
+    ul li{
+            display: inline-block;
+            list-style-type: none;
+            margin: 0px !important;
+        }
+    #banner-child-1{
+        width: 100%;
+        margin-top: 30px;
+        }
+    #banner-child-2{
+        border-radius: 2px !important;
+}
+div.bannerbg{
+    display: flex;
+    justify-content: space-around;
+    padding: 0% 0%;
+    /* border: 1px solid red; */
+    background-image: url('arc.jpg');
+    border-bottom-right-radius: 0%;
+    background-color: #023430;
+}
+.space{
+    margin-top: 10%;
+    margin-left: 10px;
+    padding-top: 20px;
+}
+#signin{
+    font-size: 20px;
+    margin-top: 20px;
+}
+  }
+  @media screen and (min-width: 601px) and (max-width: 800px){
+    .hide{
+        display: none;
+    }
+    nav{
+        width: 100%;
+    }
+    .block{
+        display: block;
+        align: center;
+        text-align: center;
+    }
+    ul li{
+            display: inline-block;
+            list-style-type: none;
+            margin: 0px !important;
+        }
+    #banner-child-1{
+        width: 100%;
+        margin-top: 30px;
+        }
+    #banner-child-2{
+        border-radius: 2px !important;
+}
+div.bannerbg{
+    display: flex;
+    justify-content: space-around;
+    padding: 0% 0%;
+    /* border: 1px solid red; */
+    background-image: url('arc.jpg');
+    border-bottom-right-radius: 0%;
+    background-color: #023430;
+}
+.space{
+    margin-top: 10%;
+    margin-left: 200px;
+    padding-top: 20px;
+}
+#signin{
+    font-size: 20px;
+    margin-top: 20px;
+}
+  }
+  @media screen and (min-width: 801px) and (max-width: 1150px){
+    .hide{
+        display: none;
+    }
+    nav{
+        width: 100%;
+    }
+    .block{
+        display: block;
+        align: center;
+        text-align: center;
+    }
+    ul li{
+            display: inline-block;
+            list-style-type: none;
+            margin: 0px !important;
+        }
+    #banner-child-1{
+        width: 100%;
+        margin-top: 30px;
+        }
+    #banner-child-2{
+        border-radius: 2px !important;
+}
+div.bannerbg{
+    display: flex;
+    justify-content: space-around;
+    padding: 0% 0%;
+    /* border: 1px solid red; */
+    background-image: url('arc.jpg');
+    border-bottom-right-radius: 0%;
+    background-color: #023430;
+}
+.space{
+    margin-top: 10%;
+    margin-left: 300px;
+    padding-top: 20px;
+}
+#signin{
+    font-size: 24px;
+    margin-top: 20px;
+}
+  }
 </style>      
 </head>
 <body>
@@ -287,16 +425,18 @@
             <nav>            
                 <div id="logo">
                         <a href="index.php" class="logolink">
-                        <h2 id="spanlogo"><img id="homelogo" src="images/home.png" alt="logo">Homify</h2>
+                        <h2 id="spanlogo"><img class="hide" id="homelogo" src="images/home.png" alt="logo"><?php if (defined("APP_NAME")) {
+        echo APP_NAME;
+    }?></h2>
                         </a>
                         </div>
-                <div id="search">                    
+                <div id="search" class="hide hide2">                    
                         <input type="text" name="search" id="search"><img class="imgsearch" src="images/search.png">                    
                 </div>
                 <div id="about">
                     <ul>
-                        <li><a href="#">Solutions</a></li>
-                        <li><a href="more.php">Properties</a></li>
+                        <li class="hide"><a href="#">Solutions</a></li>
+                        <li class="hide"><a href="more.php">Properties</a></li>
                         <?php
                             if (isset($_SESSION['landlord'])) {
                         ?>

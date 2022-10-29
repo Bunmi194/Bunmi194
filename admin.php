@@ -151,9 +151,9 @@ include_once "header.php";
         </form>
         </div>
         <!-- <?php
-        echo "<pre>";
-        print_r($_REQUEST);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($_REQUEST);
+        // echo "</pre>";
         ?> -->
                    <!-- <input type="hidden" name="me" value="<?php  $c = $_REQUEST['signintype']; echo $c?>" id="rew"> -->
         </div>

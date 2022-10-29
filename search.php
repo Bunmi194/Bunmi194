@@ -16,7 +16,9 @@ ob_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="shared/index.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">
-    <title>Homify</title>
+    <title><?php if (defined("APP_NAME")) {
+        echo APP_NAME;
+    }?></title>
     <style> 
                
         ul li{
@@ -288,30 +290,49 @@ ob_start();
             <nav>            
                 <div id="logo">
                         <a href="index.php" class="logolink">
-                        <h2 id="spanlogo"><img id="homelogo" src="images/home.png" alt="logo">Homify</h2>
+                        <h2 id="spanlogo"><img id="homelogo" src="images/home.png" alt="logo"><?php if (defined("APP_NAME")) {
+        echo APP_NAME;
+    }?></h2>
                         </a>
                         </div>
                 <div id="search">                    
-                        <input type="text" name="search" id="searchinput"><img class="imgsearch" src="images/search.png">                    
+                        <input type="text" name="search" id="searchinput" placeholder="search an apartment..."><img class="imgsearch" src="images/search.png">                    
                 </div>
                 <div id="about">
                     <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Solutions</a></li>
                         <li><a href="more.php">Properties</a></li>
                         <?php
-                            if (isset($_SESSION['lastname'])) {
-                        ?>
+                            if (isset($_SESSION['lastname']) && isset($_SESSION['landlord'])) {
+                        ?>  
+                            <a href="landashboard.php" class="hide">
                             <li><b>Welcome <?php if(isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?></b></li>
                             <button type="button" id="button" disabled>Lock</button>
+                            </a>
+                            <button type="button" id="button"><a href="logout.php" id="button2" name="btnphsignout">Lock</a><img src="images/padlck.png" width="30%"></button>
                         <?php
-                            }else{
+                            }elseif(isset($_SESSION['role'])){
                         
                         ?>
+                            <a href="admindashboard.php" class="hide">
+                            <li><b>Welcome <?php if(isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?></b></li>
+                        </a>
+                        <button type="button" id="button"><a href="logout.php" id="button2" name="btnphsignout">Lock</a><img src="images/padlck.png" width="30%"></button>
+                        <?php
+                            }elseif(isset($_SESSION['lastname']) && !isset($_SESSION['landlord']) && !isset($_SESSION['role'])){
+                        ?>
+                        <a href="tendashboard.php" class="hide">
+                            <li><b>Welcome <?php if(isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?></b></li>
+                        </a>
+                        <button type="button" id="button"><a href="logout.php" id="button2" name="btnphsignout">Lock</a><img src="images/padlck.png" width="30%"></button>
+                        <?php
+                            }else{
+
                             
+                        ?>
                         <li><a href="signin.php">Sign In</a></li>
                         <button type="button" id="button"><a href="register.php" id="button2">Register</a></button>
                         <?php
+                            
                             }
                         ?>
                     </ul>
@@ -319,8 +340,10 @@ ob_start();
             </nav>
 <style>
    .blurr{
-        filter: blur(0px);
-        position: relative;
+        filter:;
+        /* position: relative; */
+        top: 0px;
+        /*z-index: -1;*/
    }
 </style>
 
@@ -337,7 +360,7 @@ ob_start();
                 <div class="overlay">
                     <div class="bannerbg">
                         <div class="nm">
-                        <div id="banner-child-1">
+                        <div id="banner-child-1" style="filter:blur(5px)">
                         <p id="writeup-body">
                             <h2 class="anim" id="writeup">
                                 <span>Smart Housing Solutions</span> <span>Designed For Smarter</span> <span>People.</span>
@@ -353,7 +376,7 @@ ob_start();
                 </div>
             </div>
         </div>
-       <div class="blurr">
+       <div class="blurr" style="filter:blur(5px)">
             <p class="propertyheader">Listed Properties</p>
             <div class="properties">
                 <?php 
@@ -379,8 +402,8 @@ ob_start();
                 ?>
             </div>
         </div>
-        <div class="mand blurr">
-            <h2 id="secure">
+        <div class="mand blurr" style="filter:blur(5px)">
+            <h2 id="secure" class="blurr">
                 Securing an apartment doesn't have to be frustrating
             </h2>
             <p>
@@ -388,10 +411,10 @@ ob_start();
             </p>
             <button class="" id="">Get Started</button>
         </div>
-        <div class="divstyle">
+        <div class="divstyle blurr">
 
         </div>
-        <div class="proploc blurr">
+        <div class="proploc blurr" style="filter:blur(5px)">
             <p class="propertyheader">Properties By Location</p>
             <div class="properties">
                 
@@ -432,7 +455,7 @@ ob_start();
         <div class="divstyle">
 
         </div>
-        <div class="mandatewrapper blurr">
+        <div class="mandatewrapper blurr" style="filter:blur(5px)">
             <div class="mandatewrapper-child">
                 <img src="images/house.png" alt="house">
                 <h3>Rent Faster</h3>
@@ -441,7 +464,9 @@ ob_start();
             <div class="mandatewrapper-child">
                 <img src="images/no-fee.png" alt="free">
                 <h3>Zero Agent Fee</h3>
-                <p>Homify connects tenants directly to landlords without the need for any agent fees. You pay the exact rent and move in immediately.</p>
+                <p><?php if (defined("APP_NAME")) {
+        echo APP_NAME;
+    }?> connects tenants directly to landlords without the need for any agent fees. You pay the exact rent and move in immediately.</p>
             </div>
             <div class="mandatewrapper-child">
                 <img src="images/regulation.png" alt="regulation">

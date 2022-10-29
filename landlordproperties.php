@@ -1,8 +1,8 @@
 <?php 
         session_start();
         include_once "portalheader.php";
-        if (!isset($_SESSION['role'])) {
-            $_SESSION['break'] = "!rotartsinimda";
+        if (!isset($_SESSION['landlord'])) {
+            $_SESSION['break'] = "You need to log in as a landlord to access the page";
             header("Location: signin.php");
             exit();
         }
@@ -18,7 +18,7 @@
         include_once "shared/constants.php";
         include_once "shared/landlord.php";
         $landmessage = new Landlord();
-        $resultset = $landmessage->getAllPropertiesAdmin();
+        $resultset = $landmessage->getAllProperties($_SESSION['id']);
         
         // echo "<pre>";
         // print_r($_SESSION);

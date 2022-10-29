@@ -21,18 +21,18 @@
         $landmessage = new Landlord();
         $resultset = $landmessage->getAllMessages($_SESSION['id']);
         
-        echo "<pre>";
-        print_r($_SESSION);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($_SESSION);
+        // echo "</pre>";
 
         
-        echo "<pre>";
-        print_r($_REQUEST);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($_REQUEST);
+        // echo "</pre>";
         
-        echo "<pre>";
-        print_r($resultset);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($resultset);
+        // echo "</pre>";
     ?>
           <?php
                 if(isset($_SESSION['booked'])){

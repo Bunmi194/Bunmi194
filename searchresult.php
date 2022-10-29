@@ -38,14 +38,17 @@ $i = 25;
         if ($searchprop == "NO RECORD") {                
         echo "<div class='alert alert-warning'>No Record Found</div>";
         }else{
+        ?>
 
-       echo  "<div style='position: absolute'>";
+      <div style='position: absolute; width:100%; height: 200px; z-index: 4'>
+      <?php
 foreach($searchprop as $key => $value){
         $url = $value['url'];
-        //$i+=200;
-?>
+        
+        ?>
+        
         <a href="more.php?apartmentid=<?php echo $value['apartments_id']?>">
-        <div class="col-md-12 searchdiv" style="width:100%; height: 200px; display:flex; border: 2px solid silver; border-radius: 5px; margin: 12px; background-color: #eeeeee; position: absolute;top: <?php echo $i?>px; z-index: 5">
+        <div class="col-md-6 searchdiv" style="width:100%; height: 200px; display:flex; border: 2px solid silver; border-radius: 5px; margin: 12px; background-color: #eeeeee; z-index: 5; padding-right: 30px; margin-right: 400px;">
                 <div style="width: 100%">
                 <img src="<?php echo 'properties/'.$url?>" alt="profile image" class="img-fluid" style="width: 100%; height: 100%">
                 </div>
@@ -55,14 +58,16 @@ foreach($searchprop as $key => $value){
                 <h3>Status: <?php echo $value['status']?></h3>
                 <h3>Price: <?php echo number_format($value['price'])?></h3>
                 </div>
-                
+
         </div>
         </a>
+        <?php
         
-<?php
-echo $i;
-echo "</div>";
 }
+?>
+</div>
+       <?php 
+
         }
 }else{
         echo "<div class='alert alert-warning'>No Record Found</div>";

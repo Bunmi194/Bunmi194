@@ -175,15 +175,42 @@
         .username h3{
             padding-top: 20px;
         }
+        @media screen and (min-width: 300px) and (max-width: 400px){
+            .innerbig{
+                width: 40px;
+                margin: 0px -100px !important;
+                padding: 0px -100px !important;
+            }
+        }
+        @media screen and (max-width: 1000px){
+            .innerbig{
+                width: 80px;
+                margin: 0px -100px !important;
+                padding: 0px -100px !important;
+            }
+            .small{
+                width: 50%;
+            }
+        }
+        @media screen and (max-width: 1200px){
+            .innerbig{
+                width: 200px;
+                margin: 0px -100px !important;
+                padding: 0px -100px !important;
+            }
+            .small{
+                width: 60%;
+            }
+        }
 </style>
 
     <div>
         <div class="dashwrap">            
             <div class="dashwrapchild" id="dashwrapchild1">
-                <div class="profilepix">
+                <div class="profilepix hide">
                     <img src="images/yaba.jpg" alt="profile photo" class="img-fluid">
                 </div>
-                <div class="username">
+                <div class="username small">
                     <h3><?php echo $_SESSION['firstname']." ".$_SESSION['lastname']?></h3>
                 </div>
                 <div class="dashboardbottom">
@@ -212,16 +239,16 @@
             </div>
             <div class="dashwrapchild" id="dashwrapchild2">
                 <div class="header">
-                    <a href="tenproperties.php" class="btn btn-success">Rented Properties: <?php echo $countRent['COUNT(payments_id)']?></a>
-                    <a href="tenpayments.php" class="btn btn-primary">Payments: <?php 
+                    <a href="tenproperties.php" class="btn btn-success block">Rented Properties: <?php echo $countRent['COUNT(payments_id)']?></a>
+                    <a href="tenpayments.php" class="btn btn-primary block">Payments: <?php 
                         if ($amountCount[0]['SUM(amount)'] > 0) {
-                            echo "&#8358;".$amountCount[0]['SUM(amount)'];
+                            echo "&#8358;".number_format($amountCount[0]['SUM(amount)']);
                         }else{
                             echo "&#8358;0";
                         }
                     ?></a>
-                    <a href="tenmessages.php" class="btn btn-secondary">Inspections: <?php echo $count['COUNT(inspection_id)'] ?></a>
-                    <button name="tenbtnlogout" type="button" class="btn btn-primary"><a href="logout.php">Log Out</a></button>
+                    <a href="tenmessages.php" class="btn btn-secondary block">Inspections: <?php echo $count['COUNT(inspection_id)'] ?></a>
+                    <button name="tenbtnlogout" type="button" class="btn btn-primary block"><a href="logout.php">Log Out</a></button>
                     
                 </div>
                 <h2 class="dashboardblock landashboard">My Dashboard</h2>
@@ -233,7 +260,7 @@
                     <div class="innerbig payments">
                         <p>Total: <?php 
                         if ($amountCount[0]['SUM(amount)'] > 0) {
-                            echo "&#8358;".$amountCount[0]['SUM(amount)'];
+                            echo "&#8358;".number_format($amountCount[0]['SUM(amount)']);
                         }else{
                             echo "&#8358;0";
                         }

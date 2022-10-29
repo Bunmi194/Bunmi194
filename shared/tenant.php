@@ -163,7 +163,7 @@
 
         function getRentedProperties($tenantid){
             $msg = "completed";
-            $stmt = $this->dbaccess->prepare("SELECT * FROM payments_apartments JOIN apartments ON payments_apartments.apartments_id = apartments.apartments_id WHERE payments_apartments.tenants_id=? AND payments_apartments.status=?");
+            $stmt = $this->dbaccess->prepare("SELECT * FROM payments_apartments JOIN apartments ON payments_apartments.apartments_id = apartments.apartments_id JOIN apartment_location ON apartment_location.location_id=apartments.location_id WHERE payments_apartments.tenants_id=? AND payments_apartments.status=?");
             $stmt->bind_param("is", $tenantid, $msg);
             $stmt->execute();
 
@@ -203,7 +203,7 @@
         function amountCount($tenantid){
             $msg = "completed";
             $stmt = $this->dbaccess->prepare("SELECT SUM(amount) FROM payments_apartments JOIN apartments ON payments_apartments.apartments_id = apartments.apartments_id WHERE payments_apartments.status = ? AND payments_apartments.tenants_id=?");
-            $stmt->bind_param("is", $msg, $tenantid);
+            $stmt->bind_param("si", $msg, $tenantid);
             $stmt->execute();
 
             $resultset = $stmt->get_result();
@@ -225,7 +225,7 @@
         function tenantPayment($tenantid){
             $msg = "completed";
             $stmt = $this->dbaccess->prepare("SELECT * FROM payments_apartments JOIN apartments ON payments_apartments.apartments_id = apartments.apartments_id JOIN apartment_location ON apartment_location.location_id=apartments.location_id WHERE payments_apartments.status=? AND payments_apartments.tenants_id=?");
-            $stmt->bind_param("is", $msg, $tenantid);
+            $stmt->bind_param("si", $msg, $tenantid);
             $stmt->execute();
 
             $resultset = $stmt->get_result();

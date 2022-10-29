@@ -5,9 +5,9 @@ include_once "shared/landlord.php";
 // echo "<pre>";
 // print_r($_REQUEST);
 // echo "</pre>";
-echo "<pre>";
-print_r($_SESSION);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_SESSION);
+// echo "</pre>";
     if(isset($_REQUEST['btnreject'])){
         //rejected
         $rejectmsg = new Landlord();

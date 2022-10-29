@@ -15,18 +15,18 @@
         $tenantprop = new Tenant();
         $resultset = $tenantprop->tenantPayment($_SESSION['id']);
         
-        echo "<pre>";
-        print_r($_SESSION);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($_SESSION);
+        // echo "</pre>";
 
         
-        echo "<pre>";
-        print_r($_REQUEST);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($_REQUEST);
+        // echo "</pre>";
         
-        echo "<pre>";
-        print_r($resultset);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($resultset);
+        // echo "</pre>";
         if(isset($_SESSION['mssgf'])){
             echo $_SESSION['mssgf'];
             unset($_SESSION['mssgf']);

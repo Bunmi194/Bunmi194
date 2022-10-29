@@ -55,17 +55,18 @@ session_start();
 <?php
     $apt = new Common();
     $result = $apt->getApartmentById($_REQUEST['apartmentid']);
-    echo "<pre>";
-    print_r($_REQUEST);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($_REQUEST);
+    // echo "</pre>";
 
-    echo "<pre>";
-    print_r($_SESSION);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($_SESSION);
+    // echo "</pre>";
 
-    echo "<pre>";
-    print_r($result);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($result);
+    // echo "</pre>";
+    
     // foreach ($result as $key => $value) {
     //     $row = $value
     // }
@@ -75,9 +76,14 @@ session_start();
         <h3>Category: <?php echo $result[0]['category']?></h3>
         <h3>Status: <?php echo $result[0]['status']?></h3>
         <h4>Location: <?php echo $result[0]['location']?></h4>
-        <h4>Date Uploaded: <?php 
-            $date = $result[0]['date'];
-            echo date('jS M Y', strtotime($date));
+        <h4>Date Uploaded: <?php               
+                if (empty($result[0]['date'])) {
+                    $datew = "2022-10-21 14:32:10";
+                    echo date('jS M Y', strtotime($datew));
+                }else{
+                    $date = $result[0]['date'];
+                    echo date('jS M Y', strtotime($date));
+                }
         ?></h4>
         
             <?php
@@ -117,7 +123,7 @@ session_start();
     </div>
     <div class="morewrapper">
         <div class="morewrapperchild aside">
-            left
+            
         </div>
         <div class="morewrapperchild">
             <div class="row space" >
@@ -163,7 +169,7 @@ session_start();
             </div>
         </div>
         <div class="morewrapperchild aside">
-            right
+            
         </div>
         
         <?php

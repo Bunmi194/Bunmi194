@@ -746,7 +746,28 @@
 
     //delete property
         function deleteProperty($propertyid){
+            //inspection $ messages
             
+            //third table-messages_apartment
+            $statement2 = $this->dbaccess->prepare("DELETE FROM messages_apartment WHERE apartment_id=?");
+            //bind
+            $statement2->bind_param("i",$propertyid);
+            $statement2->execute();
+
+            
+            //fourth table-inspection
+            $statement3 = $this->dbaccess->prepare("DELETE FROM inspection WHERE apartments_id=?");
+            //bind
+            $statement3->bind_param("i",$propertyid);
+            $statement3->execute();
+
+            
+            //fifth table-payments_apartments
+            $statement4 = $this->dbaccess->prepare("DELETE FROM payments_apartments WHERE apartments_id=?");
+            //bind
+            $statement4->bind_param("i",$propertyid);
+            $statement4->execute();
+
             //prepare
             $statement = $this->dbaccess->prepare("DELETE FROM images_apartments WHERE apartments_id=?");
             //bind
@@ -759,8 +780,10 @@
             $statement1->bind_param("i",$propertyid);
             $statement1->execute();
 
+            
 
-            if ($statement->affected_rows == 1 && ($statement1->affected_rows == 1)) {
+
+            if ($statement->affected_rows >= 0 && ($statement1->affected_rows >= 0) && ($statement2->affected_rows >= 0) && ($statement3->affected_rows >= 0)) {
                 return true;
             }else{
                 return false;
@@ -775,6 +798,19 @@
             $status = "booked";
             //prepare
             $statement2 = $this->dbaccess->prepare("SELECT COUNT(apartments_id) FROM inspection WHERE apartments_id=? AND status=?");
+            //bind
+            $statement2->bind_param("is", $propertyid, $status);
+            $statement2->execute();
+            $record = $statement2->get_result();
+            $num = $record->fetch_assoc();
+            return $num;
+        }
+
+        
+        function checkPaymentBeforeDelete($propertyid){
+            $status = "completed";
+            //prepare
+            $statement2 = $this->dbaccess->prepare("SELECT COUNT(apartments_id) FROM payments_apartments WHERE apartments_id=? AND status !=?");
             //bind
             $statement2->bind_param("is", $propertyid, $status);
             $statement2->execute();

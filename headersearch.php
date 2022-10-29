@@ -9,9 +9,16 @@ ob_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="shared/index.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css">
-    <title>Homify</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inspiration&family=Lobster&family=Poppins:ital,wght@1,400;1,600&family=Quicksand&display=swap" rel="stylesheet">
+    <title><?php if (defined("APP_NAME")) {
+        echo APP_NAME;
+    }?></title>
     <style> 
-               
+        body{
+            font-family: 'Quicksand', sans-serif;
+        } 
         ul li{
             display: inline-block;
             list-style-type: none;
@@ -281,7 +288,9 @@ ob_start();
             <nav>            
                 <div id="logo">
                         <a href="index.php" class="logolink">
-                        <h2 id="spanlogo"><img id="homelogo" src="images/home.png" alt="logo">Homify</h2>
+                        <h2 id="spanlogo"><img id="homelogo" src="images/home.png" alt="logo"><?php if (defined("APP_NAME")) {
+        echo APP_NAME;
+    }?></h2>
                         </a>
                         </div>
                 <div id="search">                    

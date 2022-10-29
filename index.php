@@ -24,16 +24,16 @@
                             Get your properties listed for free and have over 10 million Lagosians browse through them. Built for landlords and tenants who are ready to cut off agents in order to make housing affordable and accessible to all. Designed with your safety and convenience at heart.
                             </p>
                         </p>
-                        <button class="anim" id="btn">Get Started</button>
+                        <a href="signin.php"><button class="anim" id="btn">Get Started</button></a>
                         </div>
                     </div>
                     </div>
                 </div>
             </div>
         </div>
-       <div>
+       <div class="">
             <p class="propertyheader">Listed Properties</p>
-            <div class="properties">
+            <div class="properties block">
                 <?php 
                     $cobj = new Common();
                     $result = $cobj->getCat();
@@ -64,14 +64,14 @@
             <p>
                 Our mandate is to eradicate the unnecessary burden that comes with renting an apartment in Lagos coupled with the unreasonably high agent fees.
             </p>
-            <button class="" id="">Get Started</button>
+            <a href="signin.php"><button class="" id="">Get Started</button></a>
         </div>
         <div class="divstyle">
 
         </div>
         <div class="proploc">
             <p class="propertyheader">Properties By Location</p>
-            <div class="properties">
+            <div class="properties block">
                 
                 <?php
                     
@@ -119,7 +119,9 @@
             <div class="mandatewrapper-child">
                 <img src="images/no-fee.png" alt="free">
                 <h3>Zero Agent Fee</h3>
-                <p>Homify connects tenants directly to landlords without the need for any agent fees. You pay the exact rent and move in immediately.</p>
+                <p><?php if (defined("APP_NAME")) {
+        echo APP_NAME;
+    }?> connects tenants directly to landlords without the need for any agent fees. You pay the exact rent and move in immediately.</p>
             </div>
             <div class="mandatewrapper-child">
                 <img src="images/regulation.png" alt="regulation">
@@ -131,7 +133,7 @@
             <h2>Automated House Rental System</h2>
             <p>With a click of a button, tenants pay rents and landlords receive payments instantly.</p>
         </div>
-        <div class="slider" id="container">
+        <div class="slider hide" id="container">
             <div class="" id="panel">
                 <section class="sliderchild sliderelementchild" id="slide1">
                     <img src="images/happyhome.jpg" alt="happyhome">                   

@@ -1,13 +1,13 @@
 <?php
 
     session_start();
-    echo $_REQUEST['apartmentid'];
-        echo "<pre>";
-        print_r($_REQUEST);
-        echo "</pre>";
-        echo "<pre>";
-        print_r($_SESSION);
-        echo "</pre>";
+    // echo $_REQUEST['apartmentid'];
+        // echo "<pre>";
+        // print_r($_REQUEST);
+        // echo "</pre>";
+        // echo "<pre>";
+        // print_r($_SESSION);
+        // echo "</pre>";
         
     if(isset($_REQUEST['btnpay']) && $_SESSION['logger'] = "K!NG_DAViD" && isset($_SESSION['id'])){
         include_once "shared/constants.php";
@@ -20,12 +20,12 @@
             header("Location: more.php?apartmentid=".$_REQUEST['apartmentid']);
             exit();
         }else{
-        echo "<pre>";
-        print_r($_REQUEST);
-        echo "</pre>";
-        echo "<pre>";
-        print_r($_SESSION);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($_REQUEST);
+        // echo "</pre>";
+        // echo "<pre>";
+        // print_r($_SESSION);
+        // echo "</pre>";
 
         //add payment class
         include_once "shared/payment.php";
@@ -43,9 +43,9 @@
             #initialize paystack transaction
             $output = $payobj->makePayment($amount, $reference, $email);
 
-            echo "<pre>";
-            print_r($output);
-            echo "</pre>";
+            // echo "<pre>";
+            // print_r($output);
+            // echo "</pre>";
             $redirect = $output->data->authorization_url;
             if(!empty($redirect)){
                 header("Location: $redirect");

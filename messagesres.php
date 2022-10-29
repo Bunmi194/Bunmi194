@@ -3,6 +3,11 @@
         unset($_SESSION['inspection_id']);
         $_SESSION['inspection_id'] = $_REQUEST['id'];
         include_once "portalheader.php";
+        if (!isset($_SESSION['landlord'])) {
+            $_SESSION['break'] = "You need to log in as a landlord to access the page";
+            header("Location: signin.php");
+            exit();
+        }
 ?>
 <style>
     .forms{
@@ -21,18 +26,18 @@
         $landmessage = new Landlord();
         $resultset = $landmessage->getAllMessages($_SESSION['id']);
         
-        echo "<pre>";
-        print_r($_SESSION);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($_SESSION);
+        // echo "</pre>";
 
         
-        echo "<pre>";
-        print_r($_REQUEST);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($_REQUEST);
+        // echo "</pre>";
         
-        echo "<pre>";
-        print_r($resultset);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($resultset);
+        // echo "</pre>";
     ?>
           <div class="form-control">
                     <h5>Are you sure you want to reject this request?</h5>

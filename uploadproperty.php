@@ -9,9 +9,9 @@ session_start();
     
     // $lg = new Common();
     // $record = $lg->getLg();
-    echo "<pre>";
-    print_r($_REQUEST);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($_REQUEST);
+    // echo "</pre>";
 ?>
 
 <style>
@@ -53,7 +53,7 @@ session_start();
     include_once "shared/landlord.php";
     $id = $_SESSION['id'];
 
-    if(isset($_REQUEST['submit']) && ($_SERVER['REQUEST_METHOD']) == "POST" && isset($_SESSION['id']) && $_SESSION['logger'] = "K!NG_DAViD"){
+    if(isset($_REQUEST['submit']) && ($_SERVER['REQUEST_METHOD']) == "POST" && isset($_SESSION['id']) && $_SESSION['logger'] = "K!NG_DAViD" && isset($_SESSION['landlord'])){
         $error = array();
         //validation here
 

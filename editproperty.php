@@ -12,24 +12,24 @@
     $apartmentid = $_REQUEST['apt'];
     $resultset = $landmessage->getPropertiesById($apartmentid);
     
-    echo "<pre>";
-    print_r($_SESSION);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($_SESSION);
+    // echo "</pre>";
 
     
-    echo "<pre>";
-    print_r($_REQUEST);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($_REQUEST);
+    // echo "</pre>";
 
     
-    echo "<pre>";
-    print_r($resultset);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($resultset);
+    // echo "</pre>";
 
     
     $id = $_SESSION['id'];
 
-    if(isset($_REQUEST['submit']) && ($_SERVER['REQUEST_METHOD']) == "POST" && isset($_SESSION['id']) && $_SESSION['logger'] = "K!NG_DAViD"){
+    if(isset($_REQUEST['submit']) && ($_SERVER['REQUEST_METHOD']) == "POST" && isset($_SESSION['id']) && $_SESSION['logger'] = "K!NG_DAViD" && isset($_SESSION['landlord'])){
         $error = array();
         //validation here
 

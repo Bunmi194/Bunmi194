@@ -5,10 +5,13 @@
     .copyright{        
         padding: 20px;
     }
+    .socialsfirst h2{
+        font-weight: bold !important;
+    }
 </style>
         <div class="footer">
             <div class="footerwrapper">
-                <div class="socialsfirst">
+                <div class="socialsfirst hide">
                     <h2>SOLUTIONS. SUPPORT. <br><span>EXCLUSIVE OFFERS!</span></h2>
                     Sign up for our monthly newsletter today<br> and stay ahead!<br>
                     <input type="text" name="newsletter" id="newsletter" placeholder="Enter your email..."><label for="newsletter"><button type="button">Sign Up</button></label>
@@ -30,16 +33,20 @@
                         <p><a href="#">Visit our Blog</a></p>
                     </div>
                     <hr>
-                    <div class="socialwrapper">
+                    <div class="socialwrapper hide">
                         <div class="socialitem">
                             <h3>Learn More</h3>
-                            <a href="#">About Homify</a>
+                            <a href="#">About <?php if (defined("APP_NAME")) {
+        echo APP_NAME;
+    }?></a>
                             <a href="#">See All Properties</a>
                             <a href="#">Search by Categories</a>
                             <a href="#">Brands</a>
                         </div>
                         <div class="socialitem">
-                            <h3>More From Homify</h3>
+                            <h3>More From <?php if (defined("APP_NAME")) {
+        echo APP_NAME;
+    }?></h3>
                             <a href="#">Payment Integration</a>
                             <a href="#">Property Verification</a>
                             <a href="#">Enrollment Process</a>
@@ -64,7 +71,9 @@
             </div>
             <div class="copyright">
                 <p>
-                    <span>COPYRIGHT &copy; 2022, HOMIFY LIMITED. ALL RIGHTS RESERVED.</span>
+                    <span>COPYRIGHT &copy; <?php echo date('Y')?>, <?php if (defined("APP_NAME")) {
+        echo APP_NAME;
+    }?> LIMITED. ALL RIGHTS RESERVED.</span>
                     By continuing past this page and/or using this site, you agree to abide by the <a href="#">Terms & Conditions</a> for this site, which prohibit commercial use of any information on this site.
                 </p>
             </div>
