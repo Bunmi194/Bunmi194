@@ -6,6 +6,10 @@
     .forms{
         display: inline-block;
     }
+    #tenmessages{
+        margin-top: 50px;
+        font-weight: bold;
+    }
 </style>
 <body>
     <?php
@@ -32,7 +36,7 @@
             echo $output;
         }
     ?>
-    <h2>My Messages</h2>
+    <h2 id="tenmessages">My Messages</h2>
     <?php
         if ($resultset[0] == "NO RECORD") {
             echo "<div class='alert alert-danger'>NO RECORD FOUND</div>";

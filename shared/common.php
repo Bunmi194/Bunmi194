@@ -10,7 +10,7 @@
             if($this->dbcon->connect_error){
                 die("Connection Failed ".$this->dbcon->connect_error);
             }else{
-                return "Connection Successful";
+                //return "Connection Successful";
             }
         }
         //getcategory

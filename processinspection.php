@@ -50,6 +50,16 @@ include_once "shared/landlord.php";
         $time = $_REQUEST['time'];
         $bookmsg = new Landlord();
         $out = $bookmsg->acceptRequest($msg, $date, $time, $_REQUEST['id']);
+        
+        // echo "<pre>";
+        // print_r($_REQUEST);
+        // echo "</pre>";
+        
+        // echo "<pre>";
+        // print_r($out);
+        // echo "</pre>";
+        // exit();
+        // exit();
 
             if ($out == 1) {
                 $_SESSION['booked'] = "You have successfully booked a property for inspection. Please check your inspection dashboard to keep track of events.";

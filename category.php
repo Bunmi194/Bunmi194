@@ -38,6 +38,10 @@
         padding: 120px 260px;
         font-weight: bold;
     }
+    #category{
+        margin-top: 100px;
+        font-weight: bold;
+    }
     
 </style>
     <?php
@@ -55,7 +59,7 @@
         
     ?>
     <div id="header">
-        <h2>Category: <?php echo $result[0]['category']?></h2>
+        <h2 id="category">Category: <?php echo $result[0]['category']?></h2>
     </div>
     <div class="row category">
              <?php 

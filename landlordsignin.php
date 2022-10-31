@@ -1,4 +1,5 @@
-<?php    
+<?php  
+    session_start();
     include_once "shared/constants.php";
     //login for landlords 
     if(isset($_REQUEST['btnsubmit'])){
@@ -12,9 +13,16 @@
         }
         //check if there is no validation error
         if(empty($errors)){
-            //add object of student class
+            //add object of landlord class
             include_once "shared/landlord.php";
-        //create object of student class
+            $objSuspend = new Landlord();
+            $suspensionStatus = $objSuspend->isSuspendedWithEmail($_REQUEST['email']);
+            if ($suspensionStatus['active_status'] != 'active') {
+                $_SESSION['blocked'] = "<p class='error'>Your account has been suspended! Please contact an admin.</p>";
+                header("Location: landlordsignin.php");
+                exit();
+            }else{
+                //create object of landlord class
                 $obj = new Landlord();
         // reference login method
 
@@ -26,7 +34,9 @@
             header("Location: landashboard.php");
             exit();
         }
-    }
+            }
+        
+    }//close
 }
     //login for tenants
     
@@ -116,7 +126,14 @@ include_once "header.php";
                             }else{
                                 echo "<p></p>";
                             }
-                        ?></span>
+                        ?>
+                        <?php
+                        if (isset($_SESSION['blocked'])) {
+                            echo "<p class='error'>".$_SESSION['blocked']."</p>";
+                            unset($_SESSION['blocked']);
+                        }
+                    ?>    
+                    </span>
                         <input type="text" name="email" id="email" placeholder="Enter your email address (for landlords)..." class="form">
                         <span class="span"><?php 
                             if(isset($errors["email"])){

@@ -6,6 +6,10 @@
     .forms{
         display: inline-block;
     }
+    #tenpayments{
+        margin-top: 50px;
+        font-weight: bold;
+    }
 </style>
 <body>
     <?php
@@ -40,7 +44,7 @@
             unset($_SESSION['delmsg']);
         }
     ?>
-    <h2>My Properties</h2>
+    <h2 id="tenpayments">My Properties</h2>
     <?php
         if ($resultset[0] == "NO RECORD") {
             echo "<div class='alert alert-danger'>NO RECORD FOUND</div>";

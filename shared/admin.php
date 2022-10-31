@@ -69,6 +69,23 @@
         }
             }
         //end login
+
+        //suspend method
+
+        function suspendTenant($id){
+            $msg = "suspended";
+            $statement = $this->dbaccess->prepare("UPDATE tenants set active_status=? WHERE tenant_id=?");
+            $statement->bind_param("si", $msg, $id);
+            $statement->execute();
+            if ($statement->affected_rows == 1) {
+                $out = "cool";
+            }else{
+                $out = "no";
+            }
+            return $out;
+        }
+        
+        //suspend method
     }
 
 ?>

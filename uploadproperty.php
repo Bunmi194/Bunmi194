@@ -403,7 +403,7 @@ session_start();
         }else{
             $('#addimage').prop('disabled',true);   
         }
-        alert(i);
+        //alert(i);
                   
             
         })
@@ -416,7 +416,7 @@ session_start();
             }
             $("#div .removeimage:last").remove();
             --i;
-            alert(i);
+            //alert(i);
 
             }
         });

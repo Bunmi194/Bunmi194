@@ -6,6 +6,10 @@
     .forms{
         display: inline-block;
     }
+    #alltenantstop{
+        margin-top: 50px;
+        font-weight: bold;
+    }
 </style>
 <body>
     <?php
@@ -38,7 +42,14 @@
             echo "<div class='alert alert-danger'>NO RECORD FOUND</div>";
         }else{
     ?>
-    <h2>All Tenants</h2>
+    
+    <h2 id="alltenantstop">All Tenants</h2>
+    <?php
+        if (isset($_SESSION['suspension_status'])) {
+            echo "<div class='alert alert-warning'>".$_SESSION['suspension_status']."</div>";
+            unset($_SESSION['suspension_status']);
+        }
+    ?>
     <table class="table">
         <thead>
             <th>S/N</th>
@@ -47,7 +58,7 @@
             <th>Email</th>
             <th>Phone</th>
             <th>NIN</th>
-            <th>Date Registered</th>
+            <th>Action</th>
         </thead>
         <tbody>
         <?php
@@ -65,7 +76,10 @@
                 </td>
                 
                 <td>
-                <?php echo $value['date_registered']?>
+                    <form action="suspension.php?id=<?php echo $value['tenant_id'] ?>" method="POST">
+                        <button type="submit" name="btnsuspend">Suspend</button>
+                        <button type="submit" name="btnunsuspend">Unsuspend</button>
+                    </form>
                 </td>
             </tr>
         <?php

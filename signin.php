@@ -45,7 +45,14 @@
             //add object of student class
             include_once "shared/tenant.php";
         //create object of student class
-        $obj = new Tenant();
+        $objSuspend = new Tenant();
+        $suspensionStatus = $objSuspend->isSuspendedWithEmail($_REQUEST['tenemail']);
+        if ($suspensionStatus['active_status'] != 'active') {
+            $_SESSION['blocked'] = "<p class='error'>Your account has been suspended! Please contact an admin.</p>";
+            header("Location: signin.php");
+            exit();
+        }else{
+            $obj = new Tenant();
         // reference login method
 
         $output = $obj->login($_REQUEST['tenemail'], $_REQUEST['tenpassword']);
@@ -56,7 +63,9 @@
             header("Location: tendashboard.php");
             exit();
         }
-    }
+        }
+        
+    }//close
 }
 include_once "header.php";
 ?>
@@ -124,7 +133,15 @@ include_once "header.php";
                             echo "<p class='error'>".$_SESSION['break']."</p>";
                             unset($_SESSION['break']);
                         }
-                    ?></span>
+                    ?>
+                    <?php
+                        if (isset($_SESSION['blocked'])) {
+                            echo "<p class='error'>".$_SESSION['blocked']."</p>";
+                            unset($_SESSION['blocked']);
+                        }
+                    ?>
+                       
+                </span>
                         <input type="text" name="tenemail" id="email" placeholder="Enter your email address (for tenants)..." class="form"><span><?php if(isset($errors["tenemail"])) {
                             echo "<p class='error'>".$errors["tenemail"]."</p>";
                         }else{

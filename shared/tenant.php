@@ -25,7 +25,7 @@
             if($this->dbaccess->connect_error){
                 die("Connection failed ".$this->dbaccess->connect_error);
             }else{
-                echo "Connection Successful";
+                //echo "Connection Successful";
             }
         }
         function register($lastname, $firstname, $address, $email, $phone, $password, $nin){
@@ -45,6 +45,11 @@
             }else{
                 $result = "cool";
                 $_SESSION['id'] = $id;
+                
+                $_SESSION['lastname'] = $lastname;
+                $_SESSION['firstname'] = $firstname;
+                $_SESSION['email'] = $email;
+                $_SESSION['logger'] = "K!NG_DAViD";
             }
             return $result;
         }
@@ -312,6 +317,88 @@
         }
 
         //check if nin exists
+
+        //check if suspended
+
+        function isSuspended($id){
+            $output = "";
+            $statement = $this->dbaccess->prepare("SELECT * FROM tenants WHERE tenant_id=?");
+            $statement->bind_param("i", $id);
+            $statement->execute();
+            $result = $statement->get_result();
+            
+            if ($result->num_rows) {
+                $output = $result->fetch_assoc();
+            }else{
+                $output = "NO RECORD";
+            }
+            return $output;
+        }
+        //check if suspended
+
+        /*
+            ------------
+            ------------
+        */
+
+        
+        //check if suspended with email
+
+        function isSuspendedWithEmail($email){
+            $output = "";
+            $statement = $this->dbaccess->prepare("SELECT * FROM tenants WHERE email=?");
+            $statement->bind_param("s", $email);
+            $statement->execute();
+            $result = $statement->get_result();
+            
+            if ($result->num_rows) {
+                $output = $result->fetch_assoc();
+            }else{
+                $output = "NO RECORD";
+            }
+            return $output;
+        }
+        //check if suspended with email
+
+        /*
+            ---------
+            --------
+        */
+        
+        //suspend method
+
+        function suspendTenant($id){
+            $msg = "suspended";
+            $statement = $this->dbaccess->prepare("UPDATE tenants set active_status=? WHERE tenant_id=?");
+            $statement->bind_param("si", $msg, $id);
+            $statement->execute();
+            if ($statement->affected_rows == 1) {
+                $out = "cool";
+            }else{
+                $out = "no";
+            }
+            return $out;
+        }
+        
+        //suspend method
+
+        
+        //unsuspend method
+
+        function unsuspendTenant($id){
+            $msg = "active";
+            $statement = $this->dbaccess->prepare("UPDATE tenants set active_status=? WHERE tenant_id=?");
+            $statement->bind_param("si", $msg, $id);
+            $statement->execute();
+            if ($statement->affected_rows == 1) {
+                $out = "cool";
+            }else{
+                $out = "no";
+            }
+            return $out;
+        }
+        
+        //unsuspend method
 
     }
 

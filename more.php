@@ -10,7 +10,7 @@ session_start();
 ?>
 <style>
     #header{
-        margin-top: 100px;
+        margin-top: 70px;
     }
     .morewrapper{
         display: flex;
@@ -43,13 +43,16 @@ session_start();
         width: 20%;
     }
     .space{
-        margin-left: 20px;
+        margin-left: 0px;
     }
     .forms{
         display: inline-block;
         margin-left: 0px;
         margin-right: 30px;
         /* width: 100px; */
+    }
+    #morehousetitle{
+        font-weight: bold;
     }
 </style>
 <?php
@@ -72,7 +75,7 @@ session_start();
     // }
 ?>
     <div id="header">
-        <h2>House Title: <?php echo $result[0]['title']?></h2>
+        <h2 id="morehousetitle">House Title: <?php echo $result[0]['title']?></h2>
         <h3>Category: <?php echo $result[0]['category']?></h3>
         <h3>Status: <?php echo $result[0]['status']?></h3>
         <h4>Location: <?php echo $result[0]['location']?></h4>

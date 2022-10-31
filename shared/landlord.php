@@ -31,7 +31,7 @@
             if($this->dbaccess->connect_error){
                 die("Connection failed ".$this->dbaccess->connect_error);
             }else{
-                echo "Connection Successful";
+                //echo "Connection Successful";
             }
         }
         function register($lastname, $firstname, $address, $email, $phone, $password, $propnumber, $account_name, $account_number, $bank_name, $nin, $admin_id, $keylogin){
@@ -53,6 +53,11 @@
                 session_start();
                 $_SESSION['id'] = $id;
                 $_SESSION['landlord'] = "landlord";
+                $_SESSION['lastname'] = $lastname;
+                $_SESSION['firstname'] = $firstname;
+                
+                $_SESSION['landlord'] = "landlord";
+                $_SESSION['logger'] = "K!NG_DAViD";
             }
             return $result;
         }
@@ -493,7 +498,7 @@
         //getallmessages
 
             function getAllMessages($landlords_id){
-                $stmt = $this->dbaccess->prepare("SELECT * FROM messages_apartment JOIN apartments ON messages_apartment.apartment_id = apartments.apartments_id LEFT JOIN landlords ON apartments.landlords_id = landlords.landlord_id LEFT JOIN inspection ON inspection.apartments_id = apartments.apartments_id WHERE landlords.landlord_id=? GROUP BY message_id");
+                $stmt = $this->dbaccess->prepare("SELECT * FROM messages_apartment JOIN apartments ON messages_apartment.apartment_id = apartments.apartments_id LEFT JOIN landlords ON apartments.landlords_id = landlords.landlord_id LEFT JOIN inspection ON inspection.apartments_id = apartments.apartments_id WHERE landlords.landlord_id=? GROUP BY message_id ORDER BY messages_apartment.inspection_date DESC");
                 $stmt->bind_param("i", $landlords_id);
                 $stmt->execute();
 
@@ -882,6 +887,90 @@
         }
 
         //check if nin exists
+
+        
+        //check if suspended
+
+        function isSuspended($id){
+            $output = "";
+            $statement = $this->dbaccess->prepare("SELECT * FROM landlords WHERE landlord_id=?");
+            $statement->bind_param("i", $id);
+            $statement->execute();
+            $result = $statement->get_result();
+            
+            if ($result->num_rows) {
+                $output = $result->fetch_assoc();
+            }else{
+                $output = "NO RECORD";
+            }
+            return $output;
+        }
+        //check if suspended
+
+        /*
+            ---------
+            ---------
+        */
+
+        
+        //check if suspended with email
+
+        function isSuspendedWithEmail($email){
+            $output = "";
+            $statement = $this->dbaccess->prepare("SELECT * FROM landlords WHERE landlord_email=?");
+            $statement->bind_param("s", $email);
+            $statement->execute();
+            $result = $statement->get_result();
+            
+            if ($result->num_rows) {
+                $output = $result->fetch_assoc();
+            }else{
+                $output = "NO RECORD";
+            }
+            return $output;
+        }
+        //check if suspended with email
+
+        /*
+            ----------
+            -------------
+        */
+
+        
+        //suspend method
+
+        function suspendLandlord($id){
+            $msg = "suspended";
+            $statement = $this->dbaccess->prepare("UPDATE landlords set active_status=? WHERE landlord_id=?");
+            $statement->bind_param("si", $msg, $id);
+            $statement->execute();
+            if ($statement->affected_rows == 1) {
+                $out = "cool";
+            }else{
+                $out = "no";
+            }
+            return $out;
+        }
+        
+        //suspend method
+
+        
+        //unsuspend method
+
+        function unsuspendLandlord($id){
+            $msg = "active";
+            $statement = $this->dbaccess->prepare("UPDATE landlords set active_status=? WHERE landlord_id=?");
+            $statement->bind_param("si", $msg, $id);
+            $statement->execute();
+            if ($statement->affected_rows == 1) {
+                $out = "cool";
+            }else{
+                $out = "no";
+            }
+            return $out;
+        }
+        
+        //unsuspend method
     }
 
 

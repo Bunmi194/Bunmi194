@@ -11,6 +11,10 @@
     .forms{
         display: inline-block;
     }
+    #landlordmessages{
+        margin-top: 50px;
+        font-weight: bold;
+    }
 </style>
 <body>
     <?php
@@ -41,7 +45,7 @@
             echo "<div class='alert alert-danger'>NO RECORD FOUND</div>";
         }else{
     ?>
-    <h2>My Messages</h2>
+    <h2 id="landlordmessages">My Messages</h2>
     <table class="table">
         <thead>
             <th>S/N</th>

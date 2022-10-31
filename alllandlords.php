@@ -6,6 +6,10 @@
     .forms{
         display: inline-block;
     }
+    #alllandlordtop{
+        margin-top: 50px;
+        font-weight: bold;
+    }
 </style>
 <body>
     <?php
@@ -37,18 +41,23 @@
             echo "<div class='alert alert-danger'>NO RECORD FOUND</div>";
         }else{
     ?>
-    <h2>All Landlords</h2>
+    <h2 id="alllandlordtop">All Landlords</h2>
+    <?php
+        if (isset($_SESSION['suspension_status'])) {
+            echo "<div class='alert alert-warning'>".$_SESSION['suspension_status']."</div>";
+            unset($_SESSION['suspension_status']);
+        }
+    ?>
     <table class="table">
         <thead>
             <th>S/N</th>
-            <th style="text-align:center">ID</th>
+            <!-- <th style="text-align:center">ID</th> -->
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
             <th>Account Details</th>
-            <th>NIN</th>
-            <th>KEY</th>
-            <th>Date Registered</th>
+            <!-- <th>NIN</th> -->
+            <th>Action</th>
         </thead>
         <tbody>
         <?php
@@ -57,19 +66,21 @@
         ?>
                 <tr>
                 <td><?php echo $i++ ?></td>
-                <td><?php echo $value['landlord_id'] ?></td>
+                <!-- <td><?php echo $value['landlord_id'] ?></td> -->
                 <td><?php echo $value['landlord_lastname']." ".$value['landlord_firstname'] ?></td>
                 <td><?php echo $value['landlord_email'] ?></td>
                 <td><?php echo $value['landlord_phone'] ?></td>
                 <td><?php echo $value['account_name']."<br>".$value['account_number']."<br>".$value['bank_name'] ?></td>
-                <td>
+                <!-- <td>
                 <?php echo $value['landlord_nin']?>
-                </td>
+                </td> -->
                 <td>
-                <?php echo $value['keylogin']?>
-                </td>
                 <td>
-                <?php echo $value['date_registered']?>
+                    <form action="landlordsuspension.php?id=<?php echo $value['landlord_id'] ?>" method="POST">
+                        <button type="submit" name="btnsuspend">Suspend</button>
+                        <button type="submit" name="btnunsuspend">Unsuspend</button>
+                    </form>
+                </td>
                 </td>
             </tr>
         <?php
