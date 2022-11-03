@@ -9,7 +9,7 @@
     
     
     $landmessage = new Landlord();
-    $apartmentid = $_REQUEST['apt'];
+    $apartmentid = $_REQUEST['apartmentid'];
     $resultset = $landmessage->getPropertiesById($apartmentid);
     
     // echo "<pre>";
@@ -39,7 +39,7 @@
         $description = $_REQUEST['description'];
         $category = $_REQUEST['category'];
         $lcda = $_REQUEST['lcda'];
-        $apartmentid = $_REQUEST['apt'];
+        $apartmentid = $_REQUEST['apartmentid'];
 
         $upload = new Landlord();
         $output = $upload->updateProperty($title, $address, $price, $description, $category, $lcda, $apartmentid);
@@ -213,7 +213,7 @@
         $category = $clean->clean($_REQUEST['category']);
         $lcda = $clean->clean($_REQUEST['lcda']);
         $id = $_SESSION['id'];
-        $apartmentid = $_REQUEST['apt'];
+        $apartmentid = $_REQUEST['apartmentid'];
 
         $upload = new Landlord();
         $output = $upload->updateProperty($title, $address, $price, $description, $category, $lcda, $apartmentid);
@@ -223,14 +223,14 @@
         // echo "<div>";
 
         if(empty($output)){
-            $_SESSION['mssg'] = "<div class='alert alert-success block'><p>Your property has been successfully updated<span id='close'>&times;</span></p>
+            $_SESSION['mssg'] = "<div class='spacetop alert alert-success block'><p>Your property has been successfully updated<span id='close'>&times;</span></p>
             </div>";
            
-            header("Location: myproperties.php");
+            header("Location: landlordproperties.php");
             exit();
 
         }else{
-            $_SESSION['mssgf'] = "<div class='alert alert-danger block'>Property failed to update</div>";
+            $_SESSION['mssgf'] = "<div class='spacetop alert alert-danger block'>Property failed to update</div>";
             header("Location: editproperty.php");
             exit();
         }
@@ -249,7 +249,7 @@
 ?>
 <?php 
 
-    include_once "header.php";
+    // include_once "header.php";
     
     // $lg = new Common();
     // $record = $lg->getLg();
@@ -447,7 +447,7 @@
                 </div>
             </div><br>
             <div class="row space">
-            <input type="hidden" name="apt" value="<?php echo $_REQUEST['apt'] ?>">
+            <input type="hidden" name="apartmentid" value="<?php echo $_REQUEST['apartmentid'] ?>">
                 <div class="col">
                     <button type="submit" name="submit">Submit</button>
                 </div>

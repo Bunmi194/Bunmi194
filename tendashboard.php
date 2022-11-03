@@ -251,7 +251,7 @@
                     <button name="tenbtnlogout" type="button" class="btn btn-primary block"><a href="logout.php">Log Out</a></button>
                     
                 </div>
-                <h2 class="dashboardblock landashboard">My Dashboard</h2>
+                <h2 class="dashboardblock landashboard">Tenant's Dashboard</h2>
                 <div class="innerdashboard">
                     <div class="innerbig inspection">
                         <p>Total: <?php echo $count['COUNT(inspection_id)'] ?></p>

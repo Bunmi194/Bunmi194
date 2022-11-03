@@ -169,7 +169,7 @@ session_start();
                     <button type="button" class="btn btn-primary"><a href="logout.php">Log Out</a></button>
                     
                 </div>
-                <h2 class="dashboardblock landashboard">My Dashboard</h2>
+                <h2 class="dashboardblock landashboard">Landlord's Dashboard</h2>
                 <div class="innerdashboard">
                     <div class="innerbig inspection">
                         <p>Total: <?php if(isset($_SESSION['id'])){

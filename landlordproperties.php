@@ -15,6 +15,9 @@
         margin-top: 50px;
         font-weight: bold;
     }
+    .spacetop{
+        margin-top: 40px;
+    }
 </style>
 <body>
     <?php
@@ -63,7 +66,7 @@
             <th>Price</th>
             <th>Status</th>
             <th>Location</th>
-            <th>Date Uploaded</th>
+            <th>Date Updated</th>
             <th>Action</th>
         </thead>
         <tbody>

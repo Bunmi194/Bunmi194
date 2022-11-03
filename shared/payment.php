@@ -18,7 +18,7 @@
             if($this->dbcon->connect_error){
                 die("Error ".$this->dbcon->connect_error);
             }else{
-                echo "Connection Successful";
+                //echo "Connection Successful";
             }
         }
 
